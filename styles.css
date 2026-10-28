@@ -7,7 +7,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--bg,#eaf6ff);colo
 .chip{background:#f3f7fc;border:1px solid #dbe5f1;border-radius:999px;padding:2px 8px;font-size:12px;white-space:nowrap}
 .chip b{font-weight:700}.chip.c-waiting b{color:#e0303c}.chip.c-stuck b{color:#d9651f}
 #stamp{font-size:12px;color:#5b6a82;white-space:nowrap}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:#9aa6b8;vertical-align:0}.dot.live{background:#2fb36b;box-shadow:0 0 0 3px rgba(47,179,107,.18)}.dot.snapshot{background:#e2b24c}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:#9aa6b8;vertical-align:0}.dot.live{background:#2fb36b;box-shadow:0 0 0 3px rgba(47,179,107,.18)}.dot.snapshot,.dot.demo{background:#e2b24c;box-shadow:0 0 0 3px rgba(226,178,76,.22)}
 nav{margin-left:auto;display:flex;gap:6px;align-items:center}
 button{font:inherit;font-size:13px;border:1px solid #d6dfeb;background:#fff;color:inherit;border-radius:9px;padding:4px 10px;cursor:pointer}
 button:hover{border-color:var(--gold,#c9952d)}
@@ -42,6 +42,8 @@ button:hover{border-color:var(--gold,#c9952d)}
 .rflag{display:inline-block;font-size:11px;border-radius:999px;padding:0 7px;margin-left:4px;border:1px solid #9fd8b8;color:#1d8a4f;background:#f0fbf4;white-space:nowrap}.rflag.r-sending,.rflag.r-failed{border-color:#f0c48a;color:#b4600f;background:#fff7ec}
 details.answered{margin-top:12px}details.answered>summary{cursor:pointer;color:#1d8a4f;font-weight:600;padding:4px 2px}details.answered .qq{background:#f3fbf6;border-left-color:#2fb36b}details.closedq>summary{color:#5b6a82}details.closedq .qq{background:#f5f7fa;border-left-color:#aab4c3}
 .rbox{display:grid;gap:5px;margin-top:6px}.rbox textarea{width:100%;min-height:34px;resize:vertical;font:inherit;font-size:13px;padding:6px 8px;border-radius:8px;border:1px solid #d6dfeb}.rbox .rr{display:flex;gap:8px;align-items:center;font-size:12px;color:#5b6a82}
+.dec{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}.dec button.no{color:#a32632}.dec-note{flex-basis:100%;font-size:12px;color:#5b6a82}.reset-demo{margin-top:8px}
+.rflag.r-declined{border-color:#f0c0c4;color:#a32632;background:#fff5f6}
 .emp{color:#7a879b;text-align:center;padding:26px 0}
 #toast{position:fixed;left:50%;top:70px;transform:translate(-50%,-20px);opacity:0;z-index:9;background:#fffaf0;border:1px solid #e2b24c;border-radius:999px;padding:7px 16px;box-shadow:0 8px 24px rgba(160,120,40,.2);transition:.3s;pointer-events:none;font-weight:600}
 #toast.on{opacity:1;transform:translate(-50%,0)}

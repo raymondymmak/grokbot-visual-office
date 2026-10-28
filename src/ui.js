@@ -22,13 +22,14 @@
   };
   UI.renderTop = function (d, meeting, src) {
     $('title').textContent = (d.office && d.office.name) || t('title');
+    document.title = (d.office && d.office.name) || t('title');
     var c = { working: 0, meeting: 0, waiting: 0, stuck: 0, idle: 0, offline: 0 };
     d.agents.forEach(function (a) { var m = UI.modeOf(a, meeting);
       if (m === 'meeting') c.meeting++; else if (m === 'working' || m === 'boss' && a.currentTask) c.working++; else if (m === 'stuck') c.stuck++; else if (m === 'offline') c.offline++; else if (m !== 'waiting_approval') c.idle++;
       if (a.pending && a.status !== 'offline' || a.status === 'waiting_approval') c.waiting++; });
     var chips = [['working', '⌨'], ['meeting', '👥'], ['waiting', '❗'], ['stuck', '🌀'], ['idle', '☕'], ['offline', '🔋']];
     $('counts').innerHTML = chips.map(function (k) { return '<span class="chip c-' + k[0] + '" title="' + esc(t('c_' + k[0])) + '">' + k[1] + ' <span class="cl">' + esc(t('c_' + k[0])) + '</span> <b>' + c[k[0]] + '</b></span>'; }).join('');
-    var label = src.source === 'live' ? t('live') : src.source === 'snapshot' ? t('snapshot') : t('sample');
+    var label = src.source === 'live' ? t('live') : src.source === 'demo' ? t('demo') : src.source === 'snapshot' ? t('snapshot') : t('sample');
     $('stamp').innerHTML = '<i class="dot ' + esc(src.source) + '"></i>' + esc(label) + (d.office && d.office.updatedAt ? ' · ' + esc(t('updated')) + ' ' + esc(fmt(d.office.updatedAt)) : '');
   };
   function badge(mode) { return '<span class="badge m-' + esc(mode) + '">' + esc(t('st_' + mode)) + '</span>'; }
@@ -63,7 +64,7 @@
     var now = [], done = [], conf = [], ans = [], cls = [], R = app.replies;
     agents.forEach(function (a) { a.tasks.forEach(function (x) {
       if (x.status === 'running' || x.status === 'stuck' || x.status === 'queued') now.push([a, x]); else if (x.status === 'done') done.push([a, x]);
-      (x.confirms || []).forEach(function (c) { if (c.closed) cls.push([a, x, c]); else if (c.status === 'pending') conf.push([a, x, c]); else if (c.status === 'answered' && c.baseStatus === 'pending') ans.push([a, x, c]); }); }); });
+      (x.confirms || []).forEach(function (c) { if (c.closed) cls.push([a, x, c]); else if (c.status === 'pending') conf.push([a, x, c]); else if ((c.status === 'answered' || c.status === 'approved' || c.status === 'declined') && c.baseStatus === 'pending') ans.push([a, x, c]); }); }); });
     var ord = { stuck: 0, running: 1, queued: 2 }, ts = function (v) { return v ? Date.parse(v) : 0; };
     now.sort(function (p, q) { return ord[p[1].status] - ord[q[1].status] || ts(q[1].updatedAt) - ts(p[1].updatedAt); });
     done.sort(function (p, q) { return ts(q[1].doneAt || q[1].updatedAt) - ts(p[1].doneAt || p[1].updatedAt); });
@@ -77,10 +78,11 @@
       var qItem = function (p, i, list, pre) { var same = i > 0 && list[i - 1][1] === p[1], c = p[2], r = c.reply;
         return (same ? '' : (i ? '</div>' : '') + '<div class="it q">' + (team ? '<span class="agt" style="--c:' + esc(p[0].color || '#89a') + '">' + esc(p[0].name) + '</span>' : '') + '<div class="tn">' + esc(p[1].title) + '</div>') +
           '<div class="qq">❓ ' + esc(c.question) + (r ? ' <span class="rflag r-' + esc(r.state) + '">' + esc(r.label || t('rs_' + r.state)) + '</span>' : '') +
-          (R && R.box ? R.box(p[0], p[1], c) : app.cfg.onConfirm ? '<br><button class="ans" data-k="' + pre + i + '">' + esc(t('answer')) + '</button>' : '') + '</div>'; };
+          (c.status === 'pending' && c.kind === 'approval' ? '<div class="dec"><button type="button" data-decide="approve" data-cid="' + esc(c.id) + '" data-ag="' + esc(p[0].id) + '" data-tid="' + esc(p[1].id) + '">' + esc(t('approve')) + '</button><button type="button" class="no" data-decide="decline" data-cid="' + esc(c.id) + '" data-ag="' + esc(p[0].id) + '" data-tid="' + esc(p[1].id) + '">' + esc(t('decline')) + '</button>' + (app.src && app.src.source === 'demo' ? '<span class="dec-note">' + esc(t('decisionDemo')) + '</span>' : '') + '</div>' : (c.status === 'pending' && R && R.box ? R.box(p[0], p[1], c) : c.status === 'pending' && app.cfg.onConfirm ? '<br><button class="ans" data-k="' + pre + i + '">' + esc(t('answer')) + '</button>' : '')) + '</div>'; };
       h = conf.length ? conf.map(function (p, i) { return qItem(p, i, conf, 'p'); }).join('') + '</div>' : '<div class="emp">' + esc(t('nothingConfirm')) + '</div>';
       if (cls.length) h += '<details class="answered closedq"' + (UI.state.clsOpen ? ' open' : '') + '><summary>' + esc(t('closedN', { n: cls.length })) + '</summary>' + cls.map(function (p, i) { return qItem(p, i, cls, 'c'); }).join('') + '</div></details>';
       if (ans.length) h += '<details class="answered"' + (UI.state.ansOpen ? ' open' : '') + '><summary>✓ ' + esc(t('answeredN', { n: ans.length })) + '</summary>' + ans.map(function (p, i) { return qItem(p, i, ans, 'a'); }).join('') + '</div></details>';
+      if (app.decisions && app.decisions.has() && app.src && app.src.source === 'demo') h += '<button type="button" class="reset-demo">' + esc(t('resetDemo')) + '</button>';
     }
     var body = $('p-body'), keep = UI.state.lastKey === sel.type + sel.id + tab ? body.scrollTop : 0; UI.state.lastKey = sel.type + sel.id + tab;
     body.innerHTML = h; body.scrollTop = keep;
@@ -88,6 +90,18 @@
     $('p-tabs').querySelectorAll('button').forEach(function (b) { b.onclick = function () { UI.state.tab = b.dataset.tab; UI.renderPanel(); }; });
     var more = $('p-body').querySelector('.more'); if (more) more.onclick = function () { UI.state.more += 30; UI.renderPanel(); };
     $('p-body').querySelectorAll('.ans').forEach(function (b) { b.onclick = function () { var k = b.dataset.k, p = ({ p: conf, a: ans, c: cls })[k[0]][+k.slice(1)]; app.cfg.onConfirm(p[0], p[1], p[2]); }; });
+    $('p-body').querySelectorAll('[data-decide]').forEach(function (b) {
+      b.onclick = function () {
+        if (!PO.fleet) return;
+        b.disabled = true;
+        PO.fleet.submit(app, { confirmId: b.getAttribute('data-cid'), decision: b.getAttribute('data-decide'), agentId: b.getAttribute('data-ag'), taskId: b.getAttribute('data-tid') }).then(function () {
+          app.reapply();
+          PO.ui.toast(t(b.getAttribute('data-decide') === 'decline' ? 'declined' : 'approved'));
+        }, function () { b.disabled = false; PO.ui.toast(t('decideFail')); });
+      };
+    });
+    var reset = $('p-body').querySelector('.reset-demo');
+    if (reset) reset.onclick = function () { app.decisions.reset(); app.reapply(); PO.ui.toast(t('resetDone')); };
     bindClose();
   };
   function bindClose() { var x = $('p-head').querySelector('.x'); if (x) x.onclick = UI.close; }

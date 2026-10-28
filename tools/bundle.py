@@ -43,6 +43,8 @@ if a.data:
         code = "const A=require(%s);const fs=require('fs');process.stdout.write(JSON.stringify(A.convert(JSON.parse(fs.readFileSync(0,'utf8')),{})))" % json.dumps(os.path.join(ROOT, 'adapters', a.adapter + '.js'))
         raw = json.loads(subprocess.run(['node', '-e', code], input=json.dumps(raw), capture_output=True, text=True, check=True).stdout)
     blocks.append('<script type="application/json" id="po-data">' + safe_json(raw) + '</script>')
+elif os.path.exists(os.path.join(ROOT, 'data', 'project-hq.json')):
+    blocks.append('<script type="application/json" id="po-data">' + safe_json(json.loads(rd('data/project-hq.json'))) + '</script>')
 cfg = {}
 if a.data_url: cfg['data'] = a.data_url
 if a.title: cfg['title'] = a.title
