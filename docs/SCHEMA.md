@@ -60,7 +60,7 @@ A confirm with `"kind": "approval"` gets Approve and Decline. For an agent whose
 * Approve sets the confirm to `approved` and the agent to `resumeStatus` (default `working`).
 * Decline sets the confirm to `declined` and the agent to `declineStatus` (default `sleeping`).
 
-On the mock provider those writes stay in the page. A live file (`office.provider: "live"`) uses `VISUAL_OFFICE_CONFIG.decide`: `POST {confirmId, decision, agentId, taskId}` with `decision` `"approve"` or `"decline"`. No Grok Bot URL is built in. See `src/fleet.js`.
+On the mock provider those writes stay in the page (`localStorage` key `phq.decisions.mock`). A live file (`office.provider: "live"`) uses a separate key, `phq.decisions.live`, and `VISUAL_OFFICE_CONFIG.decide`: `POST {confirmId, decision, agentId, taskId}` with `decision` `"approve"` or `"decline"`. If that URL is missing, the desk does not change. No Grok Bot URL is built in. See `src/fleet.js`.
 
 ## Loading
 
