@@ -39,7 +39,7 @@ ts_pending: '待确认', ts_answered: '已答复',
 answered: '已答复 · 等助手处理', answeredN: '已答复 {n} 条', closedN: '已完成任务上的问题 {n}', rs_answered: '已答复', rs_seen: '助手已看到', rs_handled: '助手已处理', rs_sending: '答复待发送', rs_failed: '提交失败',
 answer: '答复', replyPh: '有意见或要求就写在这里；直接点提交 = 同意', send: '提交', sentOk: '已提交', agree: '同意（没有补充）',
 approve: '批准', decline: '拒绝', approved: '已批准', declined: '已拒绝', rs_approved: '已批准', rs_declined: '已拒绝',
-decisionDemo: '演示决定，不会发给 Grok Bot。', resetDemo: '重置演示决定', resetDone: '已恢复演示状态',
+decisionDemo: '演示决定，不会发给 Grok Bot。', decisionLocal: '只保存在这个页面里。', resetDemo: '重置演示决定', resetDone: '已恢复演示状态',
 decideFail: '没有提交。实时数据源还没接上。',
 started: '开始', last: '最近', finished: '完成', subtasks: '子任务', lastActive: '最近动静',
 emptyDesk: '{n} 号工位 · 空位', emptyDeskTip: '这里还没人。在数据里多加一个助手或真人员工，就会坐到这里。',
@@ -61,7 +61,7 @@ ts_pending: 'Pending', ts_answered: 'Answered',
 answered: 'Answered · waiting for the agent', answeredN: '{n} answered', closedN: 'Questions on finished tasks: {n}', rs_answered: 'Answered', rs_seen: 'Seen by agent', rs_handled: 'Handled', rs_sending: 'Not sent yet', rs_failed: 'Failed',
 answer: 'Answer', replyPh: 'Add a comment, or just press Send to approve', send: 'Send', sentOk: 'Sent', agree: 'Approved (no comment)',
 approve: 'Approve', decline: 'Decline', approved: 'Approved', declined: 'Declined', rs_approved: 'Approved', rs_declined: 'Declined',
-decisionDemo: 'Demo decision. Nothing is sent to Grok Bot.', resetDemo: 'Reset demo decisions', resetDone: 'Demo decisions cleared',
+decisionDemo: 'Demo decision. Nothing is sent to Grok Bot.', decisionLocal: 'Saved on this page only.', resetDemo: 'Reset demo decisions', resetDone: 'Demo decisions cleared',
 decideFail: 'Not sent. No live decide URL is configured.',
 started: 'Started', last: 'Last', finished: 'Finished', subtasks: 'Subtasks', lastActive: 'Last active',
 emptyDesk: 'Desk {n} · free', emptyDeskTip: 'Nobody sits here yet. Add another agent or a human to your data and they will take this desk.',
@@ -274,7 +274,7 @@ var sawApprove = false, sawDecline = false;
 (a.tasks || []).forEach(function (t) {
 (t.confirms || []).forEach(function (c) {
 var d = c && c.id != null ? decisions[c.id] : null;
-var decision = d && (d.decision === 'decline' ? 'decline' : 'approve');
+var decision = d && (d.decision === 'approve' || d.decision === 'decline') ? d.decision : null;
 if (decision && !c.closed && c.baseStatus === 'pending') {
 c.decision = decision;
 c.status = decision === 'decline' ? 'declined' : 'approved';
@@ -323,8 +323,10 @@ decisions[id] = { decision: decision === 'decline' ? 'decline' : 'approve', at: 
 reset: function () { Object.keys(decisions).forEach(function (k) { delete decisions[k]; }); }
 };
 }
+
+function storeName(provider) { return provider === 'live' ? 'live' : 'mock'; }
 function browserStore(provider) {
-var KEY = 'phq.decisions.' + (provider || 'mock'), initial = {};
+var KEY = 'phq.decisions.' + storeName(provider), initial = {};
 try { initial = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
 var s = memoryStore(initial);
 function save() { try { localStorage.setItem(KEY, JSON.stringify(s.all())); } catch (e) {} }
@@ -358,7 +360,7 @@ return { sent: true };
 }
 return {
 prepareAgent: prepareAgent, sourceFor: sourceFor, applyDecisions: applyDecisions,
-memoryStore: memoryStore, browserStore: browserStore, submit: submit
+memoryStore: memoryStore, storeName: storeName, browserStore: browserStore, submit: submit
 };
 });</script>
 <script>
@@ -1266,11 +1268,11 @@ else {
 var qItem = function (p, i, list, pre) { var same = i > 0 && list[i - 1][1] === p[1], c = p[2], r = c.reply;
 return (same ? '' : (i ? '</div>' : '') + '<div class="it q">' + (team ? '<span class="agt" style="--c:' + esc(p[0].color || '#89a') + '">' + esc(p[0].name) + '</span>' : '') + '<div class="tn">' + esc(p[1].title) + '</div>') +
 '<div class="qq">❓ ' + esc(c.question) + (r ? ' <span class="rflag r-' + esc(r.state) + '">' + esc(r.label || t('rs_' + r.state)) + '</span>' : '') +
-(c.status === 'pending' && c.kind === 'approval' ? '<div class="dec"><button type="button" data-decide="approve" data-cid="' + esc(c.id) + '" data-ag="' + esc(p[0].id) + '" data-tid="' + esc(p[1].id) + '">' + esc(t('approve')) + '</button><button type="button" class="no" data-decide="decline" data-cid="' + esc(c.id) + '" data-ag="' + esc(p[0].id) + '" data-tid="' + esc(p[1].id) + '">' + esc(t('decline')) + '</button>' + (app.src && app.src.source === 'demo' ? '<span class="dec-note">' + esc(t('decisionDemo')) + '</span>' : '') + '</div>' : (c.status === 'pending' && R && R.box ? R.box(p[0], p[1], c) : c.status === 'pending' && app.cfg.onConfirm ? '<br><button class="ans" data-k="' + pre + i + '">' + esc(t('answer')) + '</button>' : '')) + '</div>'; };
+(c.status === 'pending' && c.kind === 'approval' ? '<div class="dec"><button type="button" data-decide="approve" data-cid="' + esc(c.id) + '" data-ag="' + esc(p[0].id) + '" data-tid="' + esc(p[1].id) + '">' + esc(t('approve')) + '</button><button type="button" class="no" data-decide="decline" data-cid="' + esc(c.id) + '" data-ag="' + esc(p[0].id) + '" data-tid="' + esc(p[1].id) + '">' + esc(t('decline')) + '</button>' + (app.data.office && app.data.office.provider === 'live' ? '' : '<span class="dec-note">' + esc(t(app.src && app.src.source === 'demo' ? 'decisionDemo' : 'decisionLocal')) + '</span>') + '</div>' : (c.status === 'pending' && R && R.box ? R.box(p[0], p[1], c) : c.status === 'pending' && app.cfg.onConfirm ? '<br><button class="ans" data-k="' + pre + i + '">' + esc(t('answer')) + '</button>' : '')) + '</div>'; };
 h = conf.length ? conf.map(function (p, i) { return qItem(p, i, conf, 'p'); }).join('') + '</div>' : '<div class="emp">' + esc(t('nothingConfirm')) + '</div>';
 if (cls.length) h += '<details class="answered closedq"' + (UI.state.clsOpen ? ' open' : '') + '><summary>' + esc(t('closedN', { n: cls.length })) + '</summary>' + cls.map(function (p, i) { return qItem(p, i, cls, 'c'); }).join('') + '</div></details>';
 if (ans.length) h += '<details class="answered"' + (UI.state.ansOpen ? ' open' : '') + '><summary>✓ ' + esc(t('answeredN', { n: ans.length })) + '</summary>' + ans.map(function (p, i) { return qItem(p, i, ans, 'a'); }).join('') + '</div></details>';
-if (app.decisions && app.decisions.has() && app.src && app.src.source === 'demo') h += '<button type="button" class="reset-demo">' + esc(t('resetDemo')) + '</button>';
+if (app.decisions && app.decisions.has() && !(app.data.office && app.data.office.provider === 'live')) h += '<button type="button" class="reset-demo">' + esc(t('resetDemo')) + '</button>';
 }
 var body = $('p-body'), keep = UI.state.lastKey === sel.type + sel.id + tab ? body.scrollTop : 0; UI.state.lastKey = sel.type + sel.id + tab;
 body.innerHTML = h; body.scrollTop = keep;
@@ -1353,11 +1355,9 @@ var q = new URLSearchParams(location.search), base = window.VISUAL_OFFICE_CONFIG
 var cfg = Object.assign({ refreshSec: 60, adapter: 'auto', theme: 'default', layout: 'layouts/default.json' }, base);
 if (q.get('data')) cfg.data = q.get('data');
 if (q.get('adapter')) cfg.adapter = q.get('adapter') === 'none' ? null : q.get('adapter');
-if (q.get('provider')) cfg.provider = q.get('provider');
 if (q.get('decide')) cfg.decide = q.get('decide');
 if (q.get('demo') && PO.demo) { cfg.demo = true; cfg.data = null; cfg.forceSample = true; cfg.refreshSec = 3600; cfg.replies = { type: 'memory' }; }
 else if (!cfg.data && location.protocol !== 'file:') cfg.data = 'data/project-hq.json';
-if (!cfg.provider) cfg.provider = 'mock';
 if (q.get('refresh')) cfg.refreshSec = Math.max(10, +q.get('refresh') || 60);
 var saved = null; try { saved = localStorage.getItem('gvo.lang'); } catch (e) {}
 PO.i18n.set(q.get('lang') || saved || cfg.lang || 'zh');
@@ -1368,7 +1368,8 @@ var theme = PO.themes[cfg.theme] || PO.themes['default'];
 Object.keys(theme.css || {}).forEach(function (k) { document.documentElement.style.setProperty(k, theme.css[k]); });
 var R = cfg.replies && (cfg.replies.type === 'http' || cfg.replies.type === 'memory') ? PO.replies[cfg.replies.type](cfg.replies) : cfg.replies || null;
 var app = PO.app = { cfg: cfg, theme: theme, data: null, src: null, meeting: null, replies: R,
-decisions: PO.fleet ? PO.fleet.browserStore(cfg.provider) : { all: function () { return {}; }, has: function () { return false; }, decide: function () {}, reset: function () {} } };
+decisions: PO.fleet ? PO.fleet.browserStore('mock') : { all: function () { return {}; }, has: function () { return false; }, decide: function () {}, reset: function () {} },
+decisionKey: 'mock' };
 var busy = function () { try { return !!(R && R.busy && R.busy()); } catch (e) { return false; } };
 function decorate(data) {
 PO.data.applyReplies(data, R);
@@ -1391,6 +1392,10 @@ PO.ui.renderStatic();
 async function refresh(manual) {
 var r = await PO.data.load(cfg, app.src && app.src.source !== 'sample' ? app.src : null);
 if (R && R.sync) { try { await R.sync(); } catch (e) {} }
+if (PO.fleet) {
+var key = PO.fleet.storeName(r.data.office && r.data.office.provider);
+if (key !== app.decisionKey) { app.decisionKey = key; app.decisions = PO.fleet.browserStore(key); }
+}
 app.src = r; app.data = decorate(r.data); var now = Date.now();
 app.meeting = PO.data.meeting(r.data, now);
 app.engine.setData(r.data, app.meeting);

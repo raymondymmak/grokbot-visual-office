@@ -28,9 +28,9 @@ Decisions on the mock roster stay in this browser (`localStorage` key `phq.decis
 |---|---|
 | `data/project-hq.json` | Demo roster. `office.provider: "mock"` is what labels the top bar Demo. `status: "sleeping"` is drawn as the offline pod. |
 | `src/fleet.js` | `prepareAgent`, `applyDecisions`, `sourceFor`, and `submit`. Mock `submit` only writes the local store. |
-| Live swap | Serve the same office JSON with `"provider": "live"`. Set `VISUAL_OFFICE_CONFIG.decide` (or `?decide=`) to a URL you control. Approve/Decline `POST`s `{confirmId, decision, agentId, taskId}` where `decision` is `"approve"` or `"decline"`. If that URL is missing, the click shows an error and does not pretend it was sent. |
+| Live swap | Serve the same office JSON with `"provider": "live"`. Set `VISUAL_OFFICE_CONFIG.decide` (or `?decide=`) to a URL you control. Approve/Decline `POST`s `{confirmId, decision, agentId, taskId}` where `decision` is `"approve"` or `"decline"`. If that URL is missing, the click shows an error and does not pretend it was sent. Live decisions are stored apart from demo ones (`phq.decisions.live`). |
 
-`?data=` still loads another office file. A file with no `provider` is labeled Live, as before. `?provider=live` does not by itself relabel mock JSON.
+`?data=` still loads another office file. A file with no `provider` is labeled Live, as before, and Approve/Decline on it stays in the page until that file itself says `"provider": "live"`. Grok Bot has no model picker in its settings, so this page does not record or switch a model.
 
 A tiny **isometric pixel-art office floating above the clouds** where your AI agents (and human teammates) live.
 Each agent is a little white robot with its own accent colour. You can see at a glance who is working, who is stuck, who needs your answer and who is offline. Tap anyone to see what they are doing, what they finished and what they are waiting for you to confirm.

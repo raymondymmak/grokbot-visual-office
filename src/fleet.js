@@ -30,7 +30,7 @@
       (a.tasks || []).forEach(function (t) {
         (t.confirms || []).forEach(function (c) {
           var d = c && c.id != null ? decisions[c.id] : null;
-          var decision = d && (d.decision === 'decline' ? 'decline' : 'approve');
+          var decision = d && (d.decision === 'approve' || d.decision === 'decline') ? d.decision : null;
           if (decision && !c.closed && c.baseStatus === 'pending') {
             c.decision = decision;
             c.status = decision === 'decline' ? 'declined' : 'approved';
@@ -79,8 +79,10 @@
       reset: function () { Object.keys(decisions).forEach(function (k) { delete decisions[k]; }); }
     };
   }
+  /* Live files and the demo roster keep separate decision lists. */
+  function storeName(provider) { return provider === 'live' ? 'live' : 'mock'; }
   function browserStore(provider) {
-    var KEY = 'phq.decisions.' + (provider || 'mock'), initial = {};
+    var KEY = 'phq.decisions.' + storeName(provider), initial = {};
     try { initial = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
     var s = memoryStore(initial);
     function save() { try { localStorage.setItem(KEY, JSON.stringify(s.all())); } catch (e) {} }
@@ -116,6 +118,6 @@
   }
   return {
     prepareAgent: prepareAgent, sourceFor: sourceFor, applyDecisions: applyDecisions,
-    memoryStore: memoryStore, browserStore: browserStore, submit: submit
+    memoryStore: memoryStore, storeName: storeName, browserStore: browserStore, submit: submit
   };
 });
