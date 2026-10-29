@@ -1,13 +1,14 @@
 {
   "name": "grokbot-visual-office",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "AI 像素办公室 · an isometric pixel office that shows what your AI agents are doing (vanilla JS + Canvas, no build step)",
+  "description": "Project HQ · a Grokbot Visual Office fork that shows a demo roster of Raymond Mak's Grok Bot desks (vanilla JS + Canvas, no build step)",
   "license": "Apache-2.0",
   "author": "贾维斯豆",
   "scripts": {
+    "start": "python3 -m http.server 8080",
     "serve": "python3 -m http.server 8080",
     "bundle": "python3 tools/bundle.py",
-    "check": "for f in src/*.js adapters/*.js themes/*.js; do node --check $f || exit 1; done"
+    "check": "for f in src/*.js adapters/*.js themes/*.js; do node --check $f || exit 1; done && node tools/check-fleet.js"
   }
 }

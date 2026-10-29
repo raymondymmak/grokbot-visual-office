@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>AI 像素办公室 · Grokbot Visual Office</title>
+<title>Project HQ</title>
 <link rel="icon" href="data:,">
-<style>*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:var(--bg,#eaf6ff);color:var(--ink,#25324a);font:14px/1.45 system-ui,-apple-system,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}#top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:10px;padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top));background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,149,45,.35);flex-wrap:wrap}.brand{display:flex;align-items:center;gap:6px;font-weight:700;font-size:15px;white-space:nowrap}.logo{color:var(--gold,#c9952d)}#counts{display:flex;gap:6px;flex-wrap:wrap}.chip{background:#f3f7fc;border:1px solid #dbe5f1;border-radius:999px;padding:2px 8px;font-size:12px;white-space:nowrap}.chip b{font-weight:700}.chip.c-waiting b{color:#e0303c}.chip.c-stuck b{color:#d9651f}#stamp{font-size:12px;color:#5b6a82;white-space:nowrap}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:#9aa6b8;vertical-align:0}.dot.live{background:#2fb36b;box-shadow:0 0 0 3px rgba(47,179,107,.18)}.dot.snapshot{background:#e2b24c}nav{margin-left:auto;display:flex;gap:6px;align-items:center}button{font:inherit;font-size:13px;border:1px solid #d6dfeb;background:#fff;color:inherit;border-radius:9px;padding:4px 10px;cursor:pointer}button:hover{border-color:var(--gold,#c9952d)}.zoom{display:inline-flex}.zoom button{border-radius:0;margin-left:-1px}.zoom button:first-child{border-radius:9px 0 0 9px}.zoom button:last-child{border-radius:0 9px 9px 0}#wrap{position:fixed;inset:0}#stage{width:100%;height:100%;display:block;touch-action:none;cursor:grab;image-rendering:pixelated}#hint{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);background:rgba(37,50,74,.78);color:#fff;font-size:12px;padding:5px 12px;border-radius:999px;transition:opacity .8s;pointer-events:none;white-space:nowrap}#hint.off{opacity:0}#panel{position:fixed;z-index:6;top:58px;right:10px;bottom:10px;width:min(400px,calc(100vw - 20px));background:var(--panel,#fff);border:1px solid rgba(201,149,45,.35);border-radius:16px;box-shadow:0 18px 50px rgba(40,70,120,.22);display:flex;flex-direction:column;transform:translateX(110%);transition:transform .25s ease;overflow:hidden}#panel.open{transform:none}#p-head{display:flex;gap:10px;align-items:center;padding:12px 12px 8px}.av{width:48px;height:64px;flex:none;image-rendering:pixelated;border-radius:10px;background:linear-gradient(#e6f4ff,#fff);display:flex;align-items:center;justify-content:center;font-size:26px}.hd{flex:1;min-width:0}.nm{font-weight:700;font-size:16px}.sub{font-size:12px;color:#5b6a82;margin-top:2px}.x{border:none;font-size:16px;align-self:flex-start}.badge{font-size:11px;font-weight:600;border-radius:999px;padding:1px 8px;vertical-align:2px;background:#eef3f9;color:#4a5a73}.m-working{background:#e3f7ec;color:#1d8a4f}.m-meeting{background:#efe8ff;color:#6a45b8}.m-stuck{background:#fff0e5;color:#c4521c}.m-waiting_approval{background:#ffe9eb;color:#d32635}.m-offline{background:#eef1f5;color:#6b778c}.m-boss{background:#fff5dc;color:#9a6c12}.m-done{background:#fff8d6;color:#9a7a00}.m-idle{background:#e8f3ff;color:#2a6fb8}#p-tabs{display:flex;gap:4px;padding:0 12px;border-bottom:1px solid #e6ecf3}#p-tabs button{border:none;border-bottom:2px solid transparent;border-radius:0;padding:8px 10px;color:#5b6a82}#p-tabs button.on{border-color:var(--gold,#c9952d);color:inherit;font-weight:700}#p-tabs i{font-style:normal;font-size:11px;margin-left:4px;background:#eef3f9;border-radius:999px;padding:0 6px}#p-tabs i.red{background:#ff3b47;color:#fff}#p-body{overflow:auto;padding:10px 12px 16px;flex:1}.it{border:1px solid #e6ecf3;border-radius:12px;padding:9px 10px;margin-bottom:8px;background:#fff}.tn{font-weight:600}.meta{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:12px;color:#5b6a82;margin-top:4px}.pill{border-radius:6px;padding:0 6px;background:#eef3f9}.s-running{background:#e3f7ec;color:#1d8a4f}.s-stuck{background:#fff0e5;color:#c4521c}.s-done{background:#eef1f5;color:#4a5a73}.s-queued{background:#f3f0ff;color:#6a45b8}.bar{height:5px;border-radius:9px;background:#edf2f8;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#7fe3ff,#3a8dde)}.nt{font-size:12px;color:#4a5a73;margin-top:5px;white-space:pre-wrap;word-break:break-word}.subs{font-size:12px;margin-top:5px}.subs summary{cursor:pointer;color:#3a6fb0}.agt{display:inline-block;font-size:11px;color:#fff;background:var(--c);border-radius:6px;padding:0 6px;margin-bottom:3px}.qq{margin-top:5px;background:#fff6f6;border-left:3px solid #ff3b47;padding:6px 8px;border-radius:6px;font-size:13px}.ans{margin-top:6px}.more{width:100%}#links{display:contents}#links a{font-size:13px;text-decoration:none;color:inherit;border:1px solid #d6dfeb;background:#fff;border-radius:9px;padding:3px 9px;white-space:nowrap}#links a:hover{border-color:var(--gold,#c9952d)}.rflag{display:inline-block;font-size:11px;border-radius:999px;padding:0 7px;margin-left:4px;border:1px solid #9fd8b8;color:#1d8a4f;background:#f0fbf4;white-space:nowrap}.rflag.r-sending,.rflag.r-failed{border-color:#f0c48a;color:#b4600f;background:#fff7ec}details.answered{margin-top:12px}details.answered>summary{cursor:pointer;color:#1d8a4f;font-weight:600;padding:4px 2px}details.answered .qq{background:#f3fbf6;border-left-color:#2fb36b}details.closedq>summary{color:#5b6a82}details.closedq .qq{background:#f5f7fa;border-left-color:#aab4c3}.rbox{display:grid;gap:5px;margin-top:6px}.rbox textarea{width:100%;min-height:34px;resize:vertical;font:inherit;font-size:13px;padding:6px 8px;border-radius:8px;border:1px solid #d6dfeb}.rbox .rr{display:flex;gap:8px;align-items:center;font-size:12px;color:#5b6a82}.emp{color:#7a879b;text-align:center;padding:26px 0}#toast{position:fixed;left:50%;top:70px;transform:translate(-50%,-20px);opacity:0;z-index:9;background:#fffaf0;border:1px solid #e2b24c;border-radius:999px;padding:7px 16px;box-shadow:0 8px 24px rgba(160,120,40,.2);transition:.3s;pointer-events:none;font-weight:600}#toast.on{opacity:1;transform:translate(-50%,0)}@media (max-width:720px){#top{gap:6px;padding:6px 8px}.brand{font-size:14px}.chip{padding:1px 6px;font-size:11px}.chip .cl{display:none}#stamp{font-size:11px;order:3;width:100%}nav{margin-left:0;order:2;width:100%}nav button{padding:3px 8px;font-size:12px}#b-lang{margin-left:auto}#panel{top:auto;left:0;right:0;bottom:0;width:100%;height:62vh;border-radius:18px 18px 0 0;transform:translateY(105%)}#panel.open{transform:none}}</style>
+<style>*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:var(--bg,#eaf6ff);color:var(--ink,#25324a);font:14px/1.45 system-ui,-apple-system,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}#top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:10px;padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top));background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,149,45,.35);flex-wrap:wrap}.brand{display:flex;align-items:center;gap:6px;font-weight:700;font-size:15px;white-space:nowrap}.logo{color:var(--gold,#c9952d)}#counts{display:flex;gap:6px;flex-wrap:wrap}.chip{background:#f3f7fc;border:1px solid #dbe5f1;border-radius:999px;padding:2px 8px;font-size:12px;white-space:nowrap}.chip b{font-weight:700}.chip.c-waiting b{color:#e0303c}.chip.c-stuck b{color:#d9651f}#stamp{font-size:12px;color:#5b6a82;white-space:nowrap}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:#9aa6b8;vertical-align:0}.dot.live{background:#2fb36b;box-shadow:0 0 0 3px rgba(47,179,107,.18)}.dot.snapshot,.dot.demo{background:#e2b24c;box-shadow:0 0 0 3px rgba(226,178,76,.22)}nav{margin-left:auto;display:flex;gap:6px;align-items:center}button{font:inherit;font-size:13px;border:1px solid #d6dfeb;background:#fff;color:inherit;border-radius:9px;padding:4px 10px;cursor:pointer}button:hover{border-color:var(--gold,#c9952d)}.zoom{display:inline-flex}.zoom button{border-radius:0;margin-left:-1px}.zoom button:first-child{border-radius:9px 0 0 9px}.zoom button:last-child{border-radius:0 9px 9px 0}#wrap{position:fixed;inset:0}#stage{width:100%;height:100%;display:block;touch-action:none;cursor:grab;image-rendering:pixelated}#hint{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);background:rgba(37,50,74,.78);color:#fff;font-size:12px;padding:5px 12px;border-radius:999px;transition:opacity .8s;pointer-events:none;white-space:nowrap}#hint.off{opacity:0}#panel{position:fixed;z-index:6;top:58px;right:10px;bottom:10px;width:min(400px,calc(100vw - 20px));background:var(--panel,#fff);border:1px solid rgba(201,149,45,.35);border-radius:16px;box-shadow:0 18px 50px rgba(40,70,120,.22);display:flex;flex-direction:column;transform:translateX(110%);transition:transform .25s ease;overflow:hidden}#panel.open{transform:none}#p-head{display:flex;gap:10px;align-items:center;padding:12px 12px 8px}.av{width:48px;height:64px;flex:none;image-rendering:pixelated;border-radius:10px;background:linear-gradient(#e6f4ff,#fff);display:flex;align-items:center;justify-content:center;font-size:26px}.hd{flex:1;min-width:0}.nm{font-weight:700;font-size:16px}.sub{font-size:12px;color:#5b6a82;margin-top:2px}.x{border:none;font-size:16px;align-self:flex-start}.badge{font-size:11px;font-weight:600;border-radius:999px;padding:1px 8px;vertical-align:2px;background:#eef3f9;color:#4a5a73}.m-working{background:#e3f7ec;color:#1d8a4f}.m-meeting{background:#efe8ff;color:#6a45b8}.m-stuck{background:#fff0e5;color:#c4521c}.m-waiting_approval{background:#ffe9eb;color:#d32635}.m-offline{background:#eef1f5;color:#6b778c}.m-boss{background:#fff5dc;color:#9a6c12}.m-done{background:#fff8d6;color:#9a7a00}.m-idle{background:#e8f3ff;color:#2a6fb8}#p-tabs{display:flex;gap:4px;padding:0 12px;border-bottom:1px solid #e6ecf3}#p-tabs button{border:none;border-bottom:2px solid transparent;border-radius:0;padding:8px 10px;color:#5b6a82}#p-tabs button.on{border-color:var(--gold,#c9952d);color:inherit;font-weight:700}#p-tabs i{font-style:normal;font-size:11px;margin-left:4px;background:#eef3f9;border-radius:999px;padding:0 6px}#p-tabs i.red{background:#ff3b47;color:#fff}#p-body{overflow:auto;padding:10px 12px 16px;flex:1}.it{border:1px solid #e6ecf3;border-radius:12px;padding:9px 10px;margin-bottom:8px;background:#fff}.tn{font-weight:600}.meta{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:12px;color:#5b6a82;margin-top:4px}.pill{border-radius:6px;padding:0 6px;background:#eef3f9}.s-running{background:#e3f7ec;color:#1d8a4f}.s-stuck{background:#fff0e5;color:#c4521c}.s-done{background:#eef1f5;color:#4a5a73}.s-queued{background:#f3f0ff;color:#6a45b8}.bar{height:5px;border-radius:9px;background:#edf2f8;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#7fe3ff,#3a8dde)}.nt{font-size:12px;color:#4a5a73;margin-top:5px;white-space:pre-wrap;word-break:break-word}.subs{font-size:12px;margin-top:5px}.subs summary{cursor:pointer;color:#3a6fb0}.agt{display:inline-block;font-size:11px;color:#fff;background:var(--c);border-radius:6px;padding:0 6px;margin-bottom:3px}.qq{margin-top:5px;background:#fff6f6;border-left:3px solid #ff3b47;padding:6px 8px;border-radius:6px;font-size:13px}.ans{margin-top:6px}.more{width:100%}#links{display:contents}#links a{font-size:13px;text-decoration:none;color:inherit;border:1px solid #d6dfeb;background:#fff;border-radius:9px;padding:3px 9px;white-space:nowrap}#links a:hover{border-color:var(--gold,#c9952d)}.rflag{display:inline-block;font-size:11px;border-radius:999px;padding:0 7px;margin-left:4px;border:1px solid #9fd8b8;color:#1d8a4f;background:#f0fbf4;white-space:nowrap}.rflag.r-sending,.rflag.r-failed{border-color:#f0c48a;color:#b4600f;background:#fff7ec}details.answered{margin-top:12px}details.answered>summary{cursor:pointer;color:#1d8a4f;font-weight:600;padding:4px 2px}details.answered .qq{background:#f3fbf6;border-left-color:#2fb36b}details.closedq>summary{color:#5b6a82}details.closedq .qq{background:#f5f7fa;border-left-color:#aab4c3}.rbox{display:grid;gap:5px;margin-top:6px}.rbox textarea{width:100%;min-height:34px;resize:vertical;font:inherit;font-size:13px;padding:6px 8px;border-radius:8px;border:1px solid #d6dfeb}.rbox .rr{display:flex;gap:8px;align-items:center;font-size:12px;color:#5b6a82}.dec{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}.dec button.no{color:#a32632}.dec-note{flex-basis:100%;font-size:12px;color:#5b6a82}.reset-demo{margin-top:8px}.rflag.r-declined{border-color:#f0c0c4;color:#a32632;background:#fff5f6}.emp{color:#7a879b;text-align:center;padding:26px 0}#toast{position:fixed;left:50%;top:70px;transform:translate(-50%,-20px);opacity:0;z-index:9;background:#fffaf0;border:1px solid #e2b24c;border-radius:999px;padding:7px 16px;box-shadow:0 8px 24px rgba(160,120,40,.2);transition:.3s;pointer-events:none;font-weight:600}#toast.on{opacity:1;transform:translate(-50%,0)}@media (max-width:720px){#top{gap:6px;padding:6px 8px}.brand{font-size:14px}.chip{padding:1px 6px;font-size:11px}.chip .cl{display:none}#stamp{font-size:11px;order:3;width:100%}nav{margin-left:0;order:2;width:100%}nav button{padding:3px 8px;font-size:12px}#b-lang{margin-left:auto}#panel{top:auto;left:0;right:0;bottom:0;width:100%;height:62vh;border-radius:18px 18px 0 0;transform:translateY(105%)}#panel.open{transform:none}}</style>
 </head>
 <body>
 <header id="top">
-  <span id="links"></span><div class="brand"><span class="logo">◆</span><span id="title">AI 像素办公室</span></div>
+  <span id="links"></span><div class="brand"><span class="logo">◆</span><span id="title">Project HQ</span></div>
   <div id="counts"></div>
   <div id="stamp"></div>
   <nav>
@@ -23,45 +23,52 @@
 <div id="toast"></div>
 <script type="application/json" id="po-layout">{"name":"cloud-top-office","cols":22,"rows":18,"floor":["wwwwwwwwwwwwwmmmmmmmm.","wwwwwwwwwwwwwmmmmmmmm.","wwwwwwwwwwwwwmmmmmmmmw","wwwwwwwwwwwwwmmmmmmmmw","wwwwwwwwwwwwwmmmmmmmmw","wwwwwwwwwwwwwmmmmmmmmw","wwwwwwwwwwwwwmmmmmmmmw","wwwwwwwwwwwbwmmmmmmmmw","wwwwwwwwwwbbbwwwwwwwww","wwwwwwwwwbbbbbwwwwwwww","wwwwwwwwwwbbbwwwwwwwww","wwwwwwwwwwwbwwwwwwwwww","wssssssssssssssssssssw","wwwwwwwwwwwswwwrrrrrww","wwwwwwwwwwwswwwrrrrrww","wwwwwwwwwwwswwwrrrrrww",".wwwwwwwwwwswwwrrrrrw.","..wwwwwwwwwwwwwwwwww.."],"walls":{"back_x":true,"back_y":true,"windows_y0":[[2,8],[13,20]],"windows_x0":[[8,14]],"painting_x0":[3,5]},"objects":[{"type":"desk","x":2,"y":2},{"type":"chair","x":3,"y":2,"seat":true,"face":[-1,0]},{"type":"desk","x":2,"y":4},{"type":"chair","x":3,"y":4,"seat":true,"face":[-1,0]},{"type":"desk","x":2,"y":6},{"type":"chair","x":3,"y":6,"seat":true,"face":[-1,0]},{"type":"desk","x":2,"y":8},{"type":"chair","x":3,"y":8,"seat":true,"face":[-1,0]},{"type":"desk","x":2,"y":10},{"type":"chair","x":3,"y":10,"seat":true,"face":[-1,0]},{"type":"desk","x":6,"y":2},{"type":"chair","x":7,"y":2,"seat":true,"face":[-1,0]},{"type":"desk","x":6,"y":4},{"type":"chair","x":7,"y":4,"seat":true,"face":[-1,0]},{"type":"desk","x":6,"y":6},{"type":"chair","x":7,"y":6,"seat":true,"face":[-1,0]},{"type":"desk","x":6,"y":8},{"type":"chair","x":7,"y":8,"seat":true,"face":[-1,0]},{"type":"desk","x":6,"y":10},{"type":"chair","x":7,"y":10,"seat":true,"face":[-1,0]},{"type":"boss_desk","x":12,"y":8,"w":1,"h":3},{"type":"chair","x":11,"y":9,"seat":true,"face":[1,0]},{"type":"meeting_table","x":16,"y":3,"w":3,"h":2},{"type":"bookshelf","x":9,"y":0,"w":2,"h":1},{"type":"coffee_bar","x":20,"y":9,"w":1,"h":3},{"type":"stool","x":19,"y":9,"seat":true},{"type":"stool","x":19,"y":11,"seat":true},{"type":"arcade","x":20,"y":14},{"type":"armchair","x":16,"y":15,"seat":true},{"type":"armchair","x":18,"y":15,"seat":true},{"type":"side_table","x":17,"y":15},{"type":"pod","x":2,"y":15,"seat":true},{"type":"pod","x":4,"y":15,"seat":true},{"type":"pod","x":6,"y":15,"seat":true},{"type":"pod","x":8,"y":15,"seat":true},{"type":"plant","x":0,"y":0,"v":0},{"type":"plant","x":12,"y":0,"v":1},{"type":"plant","x":0,"y":11,"v":2},{"type":"plant","x":21,"y":7,"v":0},{"type":"plant","x":14,"y":13,"v":1},{"type":"plant","x":20,"y":1,"v":2},{"type":"plant","x":9,"y":16,"v":0},{"type":"plant","x":14,"y":16,"v":2},{"type":"chair","x":15,"y":3,"seat":true,"face":[1,0]},{"type":"chair","x":15,"y":4,"seat":true,"face":[1,0]},{"type":"chair","x":19,"y":3,"seat":true,"face":[-1,0]},{"type":"chair","x":19,"y":4,"seat":true,"face":[-1,0]},{"type":"chair","x":16,"y":2,"seat":true,"face":[0,1]},{"type":"chair","x":17,"y":2,"seat":true,"face":[0,1]},{"type":"chair","x":18,"y":2,"seat":true,"face":[0,1]},{"type":"chair","x":16,"y":5,"seat":true,"face":[0,-1]},{"type":"chair","x":17,"y":5,"seat":true,"face":[0,-1]},{"type":"chair","x":18,"y":5,"seat":true,"face":[0,-1]},{"type":"glass","x":13,"y":0,"axis":"y"},{"type":"glass","x":13,"y":1,"axis":"y"},{"type":"glass","x":13,"y":2,"axis":"y"},{"type":"glass","x":13,"y":3,"axis":"y"},{"type":"glass","x":13,"y":5,"axis":"y"},{"type":"glass","x":13,"y":6,"axis":"y"},{"type":"glass","x":14,"y":7,"axis":"x"},{"type":"glass","x":15,"y":7,"axis":"x"},{"type":"glass","x":16,"y":7,"axis":"x"},{"type":"glass","x":18,"y":7,"axis":"x"},{"type":"glass","x":19,"y":7,"axis":"x"},{"type":"glass","x":20,"y":7,"axis":"x"}],"zones":{"desks":[{"id":1,"desk":[2,2],"seat":[3,2],"face":[-1,0]},{"id":2,"desk":[2,4],"seat":[3,4],"face":[-1,0]},{"id":3,"desk":[2,6],"seat":[3,6],"face":[-1,0]},{"id":4,"desk":[2,8],"seat":[3,8],"face":[-1,0]},{"id":5,"desk":[2,10],"seat":[3,10],"face":[-1,0]},{"id":6,"desk":[6,2],"seat":[7,2],"face":[-1,0]},{"id":7,"desk":[6,4],"seat":[7,4],"face":[-1,0]},{"id":8,"desk":[6,6],"seat":[7,6],"face":[-1,0]},{"id":9,"desk":[6,8],"seat":[7,8],"face":[-1,0]},{"id":10,"desk":[6,10],"seat":[7,10],"face":[-1,0]}],"boss":{"seat":[11,9],"face":[1,0],"tiles":[[11,7],[10,8],[11,8],[12,8],[9,9],[10,9],[11,9],[12,9],[13,9],[10,10],[11,10],[12,10],[11,11]]},"meeting":{"seats":[[15,3,1,0],[15,4,1,0],[19,3,-1,0],[19,4,-1,0],[16,2,0,1],[17,2,0,1],[18,2,0,1],[16,5,0,-1],[17,5,0,-1],[18,5,0,-1]],"table":[17,3.5]},"pods":[[2,15],[4,15],[6,15],[8,15]],"approval_queue":[[13,8],[13,9],[14,8],[14,9],[13,11],[14,11]],"idle_spots":[{"at":[20,12],"kind":"coffee","face":[0,-1]},{"at":[19,9],"kind":"stool","face":[1,0]},{"at":[19,11],"kind":"stool","face":[1,0]},{"at":[20,15],"kind":"arcade","face":[0,-1]},{"at":[16,15],"kind":"sofa","face":[1,0]},{"at":[18,15],"kind":"sofa","face":[-1,0]},{"at":[9,1],"kind":"books","face":[0,-1]},{"at":[10,1],"kind":"books","face":[0,-1]},{"at":[4,13],"kind":"window","face":[0,1]},{"at":[16,10],"kind":"window","face":[1,0]}]}}</script>
 <script type="application/json" id="po-sample">{"schemaVersion":1,"office":{"name":"Demo Sky Office","updatedAt":"2026-01-15T15:00:00+08:00","demo":true},"projects":[{"id":"launch","name":"Spring launch"},{"id":"ops","name":"Operations"},{"id":"research","name":"Research"},{"id":"support","name":"Customer support"},{"id":"content","name":"Content"},{"id":"docs","name":"Docs"}],"agents":[{"id":"nova","name":"Nova","role":"Lead agent","color":"#4f9dff","kind":"ai","isBoss":true,"status":"working","currentTask":"Plan this week's launch","project":"ops","lastActive":"2026-01-15T14:55:00+08:00","tasks":[{"id":"n1","title":"Plan this week's launch","status":"running","project":"launch","startedAt":"2026-01-15T13:30:00+08:00","updatedAt":"2026-01-15T14:55:00+08:00","doneAt":null,"progress":0.6,"note":null,"subtasks":[{"title":"Collect team updates","status":"done"},{"title":"Draft timeline","status":"done"},{"title":"Review risks","status":"running"}],"confirms":[]},{"id":"n0","title":"Morning stand-up summary","status":"done","project":"ops","startedAt":"2026-01-15T10:00:00+08:00","updatedAt":"2026-01-15T11:00:00+08:00","doneAt":"2026-01-15T11:00:00+08:00","progress":null,"note":null,"subtasks":[],"confirms":[]}]},{"id":"pixel","name":"Pixel","role":"Designer","color":"#ff6aa2","kind":"ai","isBoss":false,"status":"working","currentTask":"Landing page hero illustration","project":"launch","lastActive":"2026-01-15T14:52:00+08:00","tasks":[{"id":"p1","title":"Landing page hero illustration","status":"running","project":"launch","startedAt":"2026-01-15T13:00:00+08:00","updatedAt":"2026-01-15T14:52:00+08:00","doneAt":null,"progress":0.5,"note":null,"subtasks":[{"title":"Sketch","status":"done"},{"title":"Colour pass","status":"running"},{"title":"Export","status":"queued"}],"confirms":[]}]},{"id":"byte","name":"Byte","role":"Engineer","color":"#34c4b8","kind":"ai","isBoss":false,"status":"working","currentTask":"Checkout page bug fixes","project":"launch","lastActive":"2026-01-15T14:48:00+08:00","tasks":[{"id":"b1","title":"Checkout page bug fixes","status":"running","project":"launch","startedAt":"2026-01-15T13:20:00+08:00","updatedAt":"2026-01-15T14:48:00+08:00","doneAt":null,"progress":0.3,"note":null,"subtasks":[{"title":"Reproduce","status":"done"},{"title":"Fix","status":"running"},{"title":"Tests","status":"queued"},{"title":"Deploy","status":"queued"}],"confirms":[]},{"id":"b0","title":"Upgrade dependencies","status":"done","project":"ops","startedAt":"2026-01-15T05:00:00+08:00","updatedAt":"2026-01-15T06:40:00+08:00","doneAt":"2026-01-15T06:40:00+08:00","progress":null,"note":null,"subtasks":[],"confirms":[{"id":"b0-c0","question":"Keep the old version as a fallback?","status":"pending"}]}]},{"id":"echo","name":"Echo","role":"Researcher","color":"#ffb340","kind":"ai","isBoss":false,"status":"stuck","currentTask":"Competitor price survey","project":"research","lastActive":"2026-01-15T14:20:00+08:00","tasks":[{"id":"e1","title":"Competitor price survey","status":"stuck","project":"research","startedAt":"2026-01-15T11:40:00+08:00","updatedAt":"2026-01-15T14:20:00+08:00","doneAt":null,"progress":0.4,"note":"A pricing page needs a login","subtasks":[{"title":"List competitors","status":"done"},{"title":"Read pricing pages","status":"stuck"},{"title":"Summary table","status":"queued"}],"confirms":[]}]},{"id":"mochi","name":"Mochi","role":"Support","color":"#c08bff","kind":"ai","isBoss":false,"status":"waiting_approval","currentTask":"Reply to customer refund emails","project":"support","lastActive":"2026-01-15T10:00:00+08:00","tasks":[{"id":"m1","title":"Reply to customer refund emails","status":"running","project":"support","startedAt":"2026-01-15T06:40:00+08:00","updatedAt":"2026-01-15T10:00:00+08:00","doneAt":null,"progress":0.8,"note":null,"subtasks":[],"confirms":[{"id":"m1-c0","question":"OK to refund order #1042 in full?","status":"pending"},{"id":"m1-c1","question":"Send the apology template to 3 customers?","status":"pending"}]}]},{"id":"kite","name":"Kite","role":"Writer","color":"#8fd14f","kind":"ai","isBoss":false,"status":"idle","currentTask":null,"project":null,"lastActive":"2026-01-15T11:40:00+08:00","tasks":[{"id":"k1","title":"Blog post: 5 tips for remote teams","status":"done","project":"content","startedAt":"2026-01-15T00:00:00+08:00","updatedAt":"2026-01-15T03:20:00+08:00","doneAt":"2026-01-15T03:20:00+08:00","progress":null,"note":null,"subtasks":[],"confirms":[]},{"id":"k2","title":"Newsletter draft","status":"queued","project":"content","startedAt":"2026-01-15T14:00:00+08:00","updatedAt":"2026-01-15T14:00:00+08:00","doneAt":null,"progress":null,"note":null,"subtasks":[],"confirms":[]}]},{"id":"atlas","name":"Atlas","role":"Ops","color":"#7a8cff","kind":"ai","isBoss":false,"status":"offline","currentTask":null,"project":null,"lastActive":"2026-01-12T22:00:00+08:00","tasks":[{"id":"a1","title":"Nightly backup check","status":"done","project":"ops","startedAt":"2026-01-12T20:20:00+08:00","updatedAt":"2026-01-12T22:00:00+08:00","doneAt":"2026-01-12T22:00:00+08:00","progress":null,"note":null,"subtasks":[],"confirms":[]}]},{"id":"lin","name":"Lin","role":"Product manager (human)","color":"#ff7a59","kind":"human","isBoss":false,"status":"working","currentTask":"User interview notes","project":"docs","lastActive":"2026-01-15T14:50:00+08:00","tasks":[{"id":"l1","title":"User interview notes","status":"running","project":"docs","startedAt":"2026-01-15T14:10:00+08:00","updatedAt":"2026-01-15T14:50:00+08:00","doneAt":null,"progress":0.5,"note":null,"subtasks":[{"title":"Interview 1","status":"done"},{"title":"Interview 2","status":"running"}],"confirms":[]}]},{"id":"juno","name":"Juno","role":"QA","color":"#2ec4f1","kind":"ai","isBoss":false,"status":"done","currentTask":null,"project":null,"lastActive":"2026-01-15T14:56:00+08:00","tasks":[{"id":"j1","title":"Regression test run","status":"done","project":"launch","startedAt":"2026-01-15T13:40:00+08:00","updatedAt":"2026-01-15T14:56:00+08:00","doneAt":"2026-01-15T14:56:00+08:00","progress":1,"note":null,"subtasks":[],"confirms":[]}]},{"id":"sam","name":"Sam","role":"Designer (human)","color":"#f2c14e","kind":"human","isBoss":false,"status":"idle","currentTask":null,"project":null,"lastActive":"2026-01-15T13:00:00+08:00","tasks":[]}]}</script>
+<script type="application/json" id="po-data">{"schemaVersion":1,"office":{"name":"Project HQ","updatedAt":"2026-10-28T12:00:00+08:00","demo":true,"provider":"mock"},"projects":[],"agents":[{"id":"tech-brief","name":"Tech Brief","role":"Tech Brief","color":"#4f9dff","kind":"ai","seat":1,"status":"working","currentTask":null,"project":null,"lastActive":"2026-10-28T11:50:00+08:00","tasks":[{"id":"tech-brief-desk","title":"Demo — marked working","status":"running","startedAt":"2026-10-28T11:00:00+08:00","updatedAt":"2026-10-28T11:50:00+08:00","doneAt":null,"progress":null,"note":"Local mock. No live brief is loaded.","subtasks":[],"confirms":[]}]},{"id":"academic-tutors","name":"Academic tutors","role":"Academic tutors","color":"#34c4b8","kind":"ai","seat":2,"status":"working","currentTask":null,"project":null,"lastActive":"2026-10-28T11:40:00+08:00","tasks":[{"id":"academic-tutors-desk","title":"Demo — marked working","status":"running","startedAt":"2026-10-28T10:00:00+08:00","updatedAt":"2026-10-28T11:40:00+08:00","doneAt":null,"progress":null,"note":"One desk for the tutor role until a real roster is connected.","subtasks":[],"confirms":[]}]},{"id":"project-bots","name":"Project bots","role":"Cursor coding agents","color":"#ff7a59","kind":"ai","seat":3,"status":"working","currentTask":null,"project":null,"lastActive":"2026-10-28T11:55:00+08:00","tasks":[{"id":"project-bots-desk","title":"Demo — marked working","status":"running","startedAt":"2026-10-28T11:10:00+08:00","updatedAt":"2026-10-28T11:55:00+08:00","doneAt":null,"progress":null,"note":"Stands in for Cursor coding agents. No live cloud-agent run is connected.","subtasks":[],"confirms":[]}]},{"id":"secretary","name":"Secretary","role":"Secretary","color":"#c9952d","kind":"ai","seat":4,"status":"waiting_approval","resumeStatus":"working","declineStatus":"sleeping","currentTask":"Needs approval","project":null,"lastActive":"2026-10-28T11:45:00+08:00","tasks":[{"id":"secretary-hold","title":"Waiting for approval","status":"running","startedAt":"2026-10-28T11:30:00+08:00","updatedAt":"2026-10-28T11:45:00+08:00","doneAt":null,"progress":null,"note":"Approve returns this desk to working. Decline sends it to sleep.","subtasks":[],"confirms":[{"id":"secretary-hold-1","kind":"approval","question":"Approve or decline this demo hold?","status":"pending"}]}]},{"id":"profile","name":"Profile","role":"Profile","color":"#c08bff","kind":"ai","seat":5,"status":"sleeping","currentTask":null,"project":null,"lastActive":"2026-10-26T22:00:00+08:00","tasks":[]},{"id":"schedule-reminders","name":"Schedule Reminders","role":"Schedule Reminders","color":"#7a8cff","kind":"ai","seat":6,"status":"sleeping","currentTask":null,"project":null,"lastActive":"2026-10-26T21:00:00+08:00","tasks":[]}]}</script>
 <script>
 (function (PO) {
 var DICT = {
 zh: {
-title: 'AI 像素办公室', team: '全队', refresh: '刷新', fit: '适配', lang: 'EN',
-live: '实时数据', sample: '示例数据', snapshot: '内置快照', updated: '数据更新',
+title: 'Project HQ', team: '全队', refresh: '刷新', fit: '适配', lang: 'EN',
+live: '实时数据', demo: '演示', sample: '示例数据', snapshot: '内置快照', updated: '数据更新',
 now: '正在做', done: '已完成', confirm: '待你确认', nothingNow: '现在手上没有进行中的任务',
 nothingDone: '还没有完成记录', nothingConfirm: '没有需要你确认的事 👍', more: '再显示 {n} 条',
 st_working: '工作中', st_idle: '摸鱼中', st_stuck: '卡住了', st_waiting_approval: '待你确认',
-st_offline: '充电中（下线）', st_done: '刚完成', st_meeting: '开会中', st_boss: '统筹全队',
+st_offline: '睡眠', st_done: '刚完成', st_meeting: '开会中', st_boss: '统筹全队',
 ts_running: '进行中', ts_done: '已完成', ts_queued: '排队', ts_stuck: '卡住', ts_cancelled: '已取消',
 ts_pending: '待确认', ts_answered: '已答复',
 answered: '已答复 · 等助手处理', answeredN: '已答复 {n} 条', closedN: '已完成任务上的问题 {n}', rs_answered: '已答复', rs_seen: '助手已看到', rs_handled: '助手已处理', rs_sending: '答复待发送', rs_failed: '提交失败',
 answer: '答复', replyPh: '有意见或要求就写在这里；直接点提交 = 同意', send: '提交', sentOk: '已提交', agree: '同意（没有补充）',
+approve: '批准', decline: '拒绝', approved: '已批准', declined: '已拒绝', rs_approved: '已批准', rs_declined: '已拒绝',
+decisionDemo: '演示决定，不会发给 Grok Bot。', decisionLocal: '只保存在这个页面里。', resetDemo: '重置演示决定', resetDone: '已恢复演示状态',
+decideFail: '没有提交。实时数据源还没接上。',
 started: '开始', last: '最近', finished: '完成', subtasks: '子任务', lastActive: '最近动静',
 emptyDesk: '{n} 号工位 · 空位', emptyDeskTip: '这里还没人。在数据里多加一个助手或真人员工，就会坐到这里。',
 desk: '{n} 号工位', bossDesk: '中央指挥台', human: '真人', ai: 'AI 助手',
 meetingOn: '会议中 · {p}', firework: '🎉 {a} 完成了「{t}」', loadFail: '没连上数据源，显示的是{s}',
 agents: '{n} 位', teamSub: '进行中 {r} · 待你确认 {c}', progress: '进度',
-c_working: '工作', c_meeting: '开会', c_waiting: '待确认', c_stuck: '卡住', c_idle: '摸鱼', c_offline: '充电',
+c_working: '工作', c_meeting: '开会', c_waiting: '待确认', c_stuck: '卡住', c_idle: '摸鱼', c_offline: '睡眠',
 hint: '拖动平移 · 滚轮/双指缩放 · 点人物或工位查看任务'
 },
 en: {
-title: 'Grokbot Visual Office', team: 'Team', refresh: 'Refresh', fit: 'Fit', lang: '中文',
-live: 'Live data', sample: 'Sample data', snapshot: 'Built-in snapshot', updated: 'Updated',
+title: 'Project HQ', team: 'Team', refresh: 'Refresh', fit: 'Fit', lang: '中文',
+live: 'Live', demo: 'Demo', sample: 'Sample data', snapshot: 'Built-in snapshot', updated: 'Updated',
 now: 'Doing', done: 'Done', confirm: 'Needs you', nothingNow: 'Nothing in progress right now',
 nothingDone: 'Nothing finished yet', nothingConfirm: 'Nothing needs your answer 👍', more: 'Show {n} more',
 st_working: 'Working', st_idle: 'Idle', st_stuck: 'Stuck', st_waiting_approval: 'Needs you',
-st_offline: 'Charging (offline)', st_done: 'Just finished', st_meeting: 'In a meeting', st_boss: 'Leading the team',
+st_offline: 'Sleeping', st_done: 'Just finished', st_meeting: 'In a meeting', st_boss: 'Leading the team',
 ts_running: 'Running', ts_done: 'Done', ts_queued: 'Queued', ts_stuck: 'Stuck', ts_cancelled: 'Cancelled',
 ts_pending: 'Pending', ts_answered: 'Answered',
 answered: 'Answered · waiting for the agent', answeredN: '{n} answered', closedN: 'Questions on finished tasks: {n}', rs_answered: 'Answered', rs_seen: 'Seen by agent', rs_handled: 'Handled', rs_sending: 'Not sent yet', rs_failed: 'Failed',
 answer: 'Answer', replyPh: 'Add a comment, or just press Send to approve', send: 'Send', sentOk: 'Sent', agree: 'Approved (no comment)',
+approve: 'Approve', decline: 'Decline', approved: 'Approved', declined: 'Declined', rs_approved: 'Approved', rs_declined: 'Declined',
+decisionDemo: 'Demo decision. Nothing is sent to Grok Bot.', decisionLocal: 'Saved on this page only.', resetDemo: 'Reset demo decisions', resetDone: 'Demo decisions cleared',
+decideFail: 'Not sent. No live decide URL is configured.',
 started: 'Started', last: 'Last', finished: 'Finished', subtasks: 'Subtasks', lastActive: 'Last active',
 emptyDesk: 'Desk {n} · free', emptyDeskTip: 'Nobody sits here yet. Add another agent or a human to your data and they will take this desk.',
 desk: 'Desk {n}', bossDesk: 'Command desk', human: 'Human', ai: 'AI agent',
 meetingOn: 'Meeting · {p}', firework: '🎉 {a} finished “{t}”', loadFail: 'Could not reach the data source, showing {s}',
 agents: '{n} members', teamSub: '{r} running · {c} need you', progress: 'Progress',
-c_working: 'Working', c_meeting: 'Meeting', c_waiting: 'Needs you', c_stuck: 'Stuck', c_idle: 'Idle', c_offline: 'Charging',
+c_working: 'Working', c_meeting: 'Meeting', c_waiting: 'Needs you', c_stuck: 'Stuck', c_idle: 'Idle', c_offline: 'Sleeping',
 hint: 'Drag to pan · wheel/pinch to zoom · tap a character or desk'
 }
 };
@@ -140,10 +147,15 @@ d.office.updatedAt = sh(d.office.updatedAt);
 d.agents.forEach(function (a) { a.lastActive = sh(a.lastActive); (a.tasks || []).forEach(function (t) { t.startedAt = sh(t.startedAt); t.updatedAt = sh(t.updatedAt); t.doneAt = sh(t.doneAt); }); });
 return d;
 }
+function sourceFor(data, fallback) {
+return PO.fleet && PO.fleet.sourceFor ? PO.fleet.sourceFor(data, fallback) : fallback;
+}
 function normalise(d) {
 d = d || {}; d.office = d.office || { name: 'AI Office' }; d.agents = (d.agents || []).filter(function (a) { return a && a.id != null; });
 d.agents.forEach(function (a, i) {
 a.id = String(a.id); a.name = a.name || a.id; a.kind = a.kind === 'human' ? 'human' : 'ai';
+if (PO.fleet && PO.fleet.prepareAgent) PO.fleet.prepareAgent(a);
+else if (a.status === 'sleeping') a.status = 'offline';
 if (STATUSES.indexOf(a.status) < 0) a.status = 'idle';
 a.baseStatus = a.baseStatus || a.status;
 a.tasks = (a.tasks || []).map(function (t, j) {
@@ -210,16 +222,19 @@ PO.data = {
 normalise: normalise, applyReplies: applyReplies, isClosed: isClosed, meeting: meeting, fireworks: fireworks, readInline: readInline, getJSON: getJSON,
 
 load: async function (cfg, last) {
-var url = cfg.data, err = null;
+var url = cfg.forceSample ? null : cfg.data, err = null;
 if (url) {
 try {
 var raw = await getJSON(url);
-return { data: PO.data.adapt(raw, cfg), source: 'live' };
+var liveData = PO.data.adapt(raw, cfg);
+return { data: liveData, source: sourceFor(liveData, 'live') };
 } catch (e) { err = e; }
 if (last) return { data: last.data, source: last.source, error: err };
 }
+if (!cfg.forceSample) {
 var snap = readInline('po-data');
-if (snap) return { data: PO.data.adapt(snap, cfg), source: 'snapshot', error: err };
+if (snap) { var snapData = PO.data.adapt(snap, cfg); return { data: snapData, source: sourceFor(snapData, 'snapshot'), error: err }; }
+}
 var sample = readInline('po-sample');
 if (!sample) { try { sample = await getJSON(cfg.sample || 'sample-data.json'); } catch (e) { sample = { office: { name: 'AI Office' }, agents: [] }; } }
 return { data: normalise(shiftDemo(JSON.parse(JSON.stringify(sample)))), source: 'sample', error: err };
@@ -232,6 +247,122 @@ return normalise(shiftDemo(d));
 }
 };
 })(window.VisualOffice = window.VisualOffice || {});</script>
+<script>
+(function (root, factory) {
+var api = factory();
+if (typeof module === 'object' && module.exports) module.exports = api;
+else { root.VisualOffice = root.VisualOffice || {}; root.VisualOffice.fleet = api; }
+})(typeof self !== 'undefined' ? self : this, function () {
+function prepareAgent(a) {
+['status', 'resumeStatus', 'declineStatus'].forEach(function (k) {
+if (a[k] === 'sleeping') a[k] = 'offline';
+});
+return a;
+}
+function sourceFor(data, fallback) {
+var p = data && data.office && data.office.provider;
+if (p === 'mock') return 'demo';
+if (p === 'live') return 'live';
+return fallback;
+}
+
+function applyDecisions(data, decisions) {
+decisions = decisions || {};
+if (!data || !data.agents) return data;
+data.agents.forEach(function (a) {
+var sawApprove = false, sawDecline = false;
+(a.tasks || []).forEach(function (t) {
+(t.confirms || []).forEach(function (c) {
+var d = c && c.id != null ? decisions[c.id] : null;
+var decision = d && (d.decision === 'approve' || d.decision === 'decline') ? d.decision : null;
+if (decision && !c.closed && c.baseStatus === 'pending') {
+c.decision = decision;
+c.status = decision === 'decline' ? 'declined' : 'approved';
+c.reply = { state: c.status };
+if (decision === 'decline') sawDecline = true; else sawApprove = true;
+} else if (!(c.reply && (c.reply.state === 'answered' || c.reply.state === 'seen' || c.reply.state === 'handled'))) {
+c.decision = null;
+if (c.reply && (c.reply.state === 'approved' || c.reply.state === 'declined')) c.reply = null;
+if (!c.closed && (c.status === 'approved' || c.status === 'declined')) c.status = c.baseStatus || 'pending';
+}
+});
+});
+a.pending = 0;
+(a.tasks || []).forEach(function (t) {
+(t.confirms || []).forEach(function (c) {
+if ((c.status || 'pending') === 'pending' && !c.closed) a.pending++;
+});
+});
+(a.tasks || []).forEach(function (t) {
+if (t._holdStatus == null) t._holdStatus = t.status;
+var touched = (t.confirms || []).some(function (c) { return c.decision; });
+var stillPending = (t.confirms || []).some(function (c) { return (c.status || 'pending') === 'pending' && !c.closed; });
+t.status = touched && !stillPending ? 'archived' : t._holdStatus;
+});
+if (!a._holdCaptured) { a._holdCaptured = true; a._holdTask = a.currentTask; }
+if (a.baseStatus === 'waiting_approval') {
+if (a.pending) { a.status = 'waiting_approval'; a.currentTask = a._holdTask; }
+else if (sawDecline || sawApprove) {
+var next = sawDecline ? (a.declineStatus || 'sleeping') : (a.resumeStatus || 'working');
+a.status = next === 'sleeping' ? 'offline' : next;
+a.currentTask = null;
+}
+}
+});
+return data;
+}
+function memoryStore(initial) {
+var decisions = {};
+if (initial) Object.keys(initial).forEach(function (k) { decisions[k] = initial[k]; });
+return {
+all: function () { return decisions; },
+has: function () { return Object.keys(decisions).length > 0; },
+decide: function (id, decision) {
+decisions[id] = { decision: decision === 'decline' ? 'decline' : 'approve', at: new Date().toISOString() };
+},
+reset: function () { Object.keys(decisions).forEach(function (k) { delete decisions[k]; }); }
+};
+}
+
+function storeName(provider) { return provider === 'live' ? 'live' : 'mock'; }
+function browserStore(provider) {
+var KEY = 'phq.decisions.' + storeName(provider), initial = {};
+try { initial = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+var s = memoryStore(initial);
+function save() { try { localStorage.setItem(KEY, JSON.stringify(s.all())); } catch (e) {} }
+return {
+all: function () { return s.all(); },
+has: function () { return s.has(); },
+decide: function (id, decision) { s.decide(id, decision); save(); },
+reset: function () { s.reset(); save(); }
+};
+}
+
+function submit(app, payload) {
+var office = app.data && app.data.office;
+var live = !!(office && office.provider === 'live');
+var decision = payload.decision === 'decline' ? 'decline' : 'approve';
+if (!live) {
+app.decisions.decide(payload.confirmId, decision);
+return Promise.resolve({ sent: false });
+}
+var url = app.cfg && app.cfg.decide;
+if (!url) return Promise.reject(new Error('no-decide-url'));
+return fetch(url, {
+method: 'POST', credentials: 'same-origin',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ confirmId: payload.confirmId, decision: decision, agentId: payload.agentId || null, taskId: payload.taskId || null })
+}).then(function (r) {
+if (!r.ok) throw new Error('HTTP ' + r.status);
+app.decisions.decide(payload.confirmId, decision);
+return { sent: true };
+});
+}
+return {
+prepareAgent: prepareAgent, sourceFor: sourceFor, applyDecisions: applyDecisions,
+memoryStore: memoryStore, storeName: storeName, browserStore: browserStore, submit: submit
+};
+});</script>
 <script>
 (function (root, factory) {
 var api = factory();
@@ -1081,13 +1212,14 @@ if (el) el.innerHTML = L.map(function (l) { return '<a href="' + esc(l.href) + '
 };
 UI.renderTop = function (d, meeting, src) {
 $('title').textContent = (d.office && d.office.name) || t('title');
+document.title = (d.office && d.office.name) || t('title');
 var c = { working: 0, meeting: 0, waiting: 0, stuck: 0, idle: 0, offline: 0 };
 d.agents.forEach(function (a) { var m = UI.modeOf(a, meeting);
 if (m === 'meeting') c.meeting++; else if (m === 'working' || m === 'boss' && a.currentTask) c.working++; else if (m === 'stuck') c.stuck++; else if (m === 'offline') c.offline++; else if (m !== 'waiting_approval') c.idle++;
 if (a.pending && a.status !== 'offline' || a.status === 'waiting_approval') c.waiting++; });
 var chips = [['working', '⌨'], ['meeting', '👥'], ['waiting', '❗'], ['stuck', '🌀'], ['idle', '☕'], ['offline', '🔋']];
 $('counts').innerHTML = chips.map(function (k) { return '<span class="chip c-' + k[0] + '" title="' + esc(t('c_' + k[0])) + '">' + k[1] + ' <span class="cl">' + esc(t('c_' + k[0])) + '</span> <b>' + c[k[0]] + '</b></span>'; }).join('');
-var label = src.source === 'live' ? t('live') : src.source === 'snapshot' ? t('snapshot') : t('sample');
+var label = src.source === 'live' ? t('live') : src.source === 'demo' ? t('demo') : src.source === 'snapshot' ? t('snapshot') : t('sample');
 $('stamp').innerHTML = '<i class="dot ' + esc(src.source) + '"></i>' + esc(label) + (d.office && d.office.updatedAt ? ' · ' + esc(t('updated')) + ' ' + esc(fmt(d.office.updatedAt)) : '');
 };
 function badge(mode) { return '<span class="badge m-' + esc(mode) + '">' + esc(t('st_' + mode)) + '</span>'; }
@@ -1122,7 +1254,7 @@ app.theme.drawCharacter(cx, 12, 30, { kind: a.kind, color: a.color, pose: 'stand
 var now = [], done = [], conf = [], ans = [], cls = [], R = app.replies;
 agents.forEach(function (a) { a.tasks.forEach(function (x) {
 if (x.status === 'running' || x.status === 'stuck' || x.status === 'queued') now.push([a, x]); else if (x.status === 'done') done.push([a, x]);
-(x.confirms || []).forEach(function (c) { if (c.closed) cls.push([a, x, c]); else if (c.status === 'pending') conf.push([a, x, c]); else if (c.status === 'answered' && c.baseStatus === 'pending') ans.push([a, x, c]); }); }); });
+(x.confirms || []).forEach(function (c) { if (c.closed) cls.push([a, x, c]); else if (c.status === 'pending') conf.push([a, x, c]); else if ((c.status === 'answered' || c.status === 'approved' || c.status === 'declined') && c.baseStatus === 'pending') ans.push([a, x, c]); }); }); });
 var ord = { stuck: 0, running: 1, queued: 2 }, ts = function (v) { return v ? Date.parse(v) : 0; };
 now.sort(function (p, q) { return ord[p[1].status] - ord[q[1].status] || ts(q[1].updatedAt) - ts(p[1].updatedAt); });
 done.sort(function (p, q) { return ts(q[1].doneAt || q[1].updatedAt) - ts(p[1].doneAt || p[1].updatedAt); });
@@ -1136,10 +1268,11 @@ else {
 var qItem = function (p, i, list, pre) { var same = i > 0 && list[i - 1][1] === p[1], c = p[2], r = c.reply;
 return (same ? '' : (i ? '</div>' : '') + '<div class="it q">' + (team ? '<span class="agt" style="--c:' + esc(p[0].color || '#89a') + '">' + esc(p[0].name) + '</span>' : '') + '<div class="tn">' + esc(p[1].title) + '</div>') +
 '<div class="qq">❓ ' + esc(c.question) + (r ? ' <span class="rflag r-' + esc(r.state) + '">' + esc(r.label || t('rs_' + r.state)) + '</span>' : '') +
-(R && R.box ? R.box(p[0], p[1], c) : app.cfg.onConfirm ? '<br><button class="ans" data-k="' + pre + i + '">' + esc(t('answer')) + '</button>' : '') + '</div>'; };
+(c.status === 'pending' && c.kind === 'approval' ? '<div class="dec"><button type="button" data-decide="approve" data-cid="' + esc(c.id) + '" data-ag="' + esc(p[0].id) + '" data-tid="' + esc(p[1].id) + '">' + esc(t('approve')) + '</button><button type="button" class="no" data-decide="decline" data-cid="' + esc(c.id) + '" data-ag="' + esc(p[0].id) + '" data-tid="' + esc(p[1].id) + '">' + esc(t('decline')) + '</button>' + (app.data.office && app.data.office.provider === 'live' ? '' : '<span class="dec-note">' + esc(t(app.src && app.src.source === 'demo' ? 'decisionDemo' : 'decisionLocal')) + '</span>') + '</div>' : (c.status === 'pending' && R && R.box ? R.box(p[0], p[1], c) : c.status === 'pending' && app.cfg.onConfirm ? '<br><button class="ans" data-k="' + pre + i + '">' + esc(t('answer')) + '</button>' : '')) + '</div>'; };
 h = conf.length ? conf.map(function (p, i) { return qItem(p, i, conf, 'p'); }).join('') + '</div>' : '<div class="emp">' + esc(t('nothingConfirm')) + '</div>';
 if (cls.length) h += '<details class="answered closedq"' + (UI.state.clsOpen ? ' open' : '') + '><summary>' + esc(t('closedN', { n: cls.length })) + '</summary>' + cls.map(function (p, i) { return qItem(p, i, cls, 'c'); }).join('') + '</div></details>';
 if (ans.length) h += '<details class="answered"' + (UI.state.ansOpen ? ' open' : '') + '><summary>✓ ' + esc(t('answeredN', { n: ans.length })) + '</summary>' + ans.map(function (p, i) { return qItem(p, i, ans, 'a'); }).join('') + '</div></details>';
+if (app.decisions && app.decisions.has() && !(app.data.office && app.data.office.provider === 'live')) h += '<button type="button" class="reset-demo">' + esc(t('resetDemo')) + '</button>';
 }
 var body = $('p-body'), keep = UI.state.lastKey === sel.type + sel.id + tab ? body.scrollTop : 0; UI.state.lastKey = sel.type + sel.id + tab;
 body.innerHTML = h; body.scrollTop = keep;
@@ -1147,6 +1280,18 @@ body.querySelectorAll('details.answered').forEach(function (det) { det.ontoggle 
 $('p-tabs').querySelectorAll('button').forEach(function (b) { b.onclick = function () { UI.state.tab = b.dataset.tab; UI.renderPanel(); }; });
 var more = $('p-body').querySelector('.more'); if (more) more.onclick = function () { UI.state.more += 30; UI.renderPanel(); };
 $('p-body').querySelectorAll('.ans').forEach(function (b) { b.onclick = function () { var k = b.dataset.k, p = ({ p: conf, a: ans, c: cls })[k[0]][+k.slice(1)]; app.cfg.onConfirm(p[0], p[1], p[2]); }; });
+$('p-body').querySelectorAll('[data-decide]').forEach(function (b) {
+b.onclick = function () {
+if (!PO.fleet) return;
+b.disabled = true;
+PO.fleet.submit(app, { confirmId: b.getAttribute('data-cid'), decision: b.getAttribute('data-decide'), agentId: b.getAttribute('data-ag'), taskId: b.getAttribute('data-tid') }).then(function () {
+app.reapply();
+PO.ui.toast(t(b.getAttribute('data-decide') === 'decline' ? 'declined' : 'approved'));
+}, function () { b.disabled = false; PO.ui.toast(t('decideFail')); });
+};
+});
+var reset = $('p-body').querySelector('.reset-demo');
+if (reset) reset.onclick = function () { app.decisions.reset(); app.reapply(); PO.ui.toast(t('resetDone')); };
 bindClose();
 };
 function bindClose() { var x = $('p-head').querySelector('.x'); if (x) x.onclick = UI.close; }
@@ -1210,7 +1355,9 @@ var q = new URLSearchParams(location.search), base = window.VISUAL_OFFICE_CONFIG
 var cfg = Object.assign({ refreshSec: 60, adapter: 'auto', theme: 'default', layout: 'layouts/default.json' }, base);
 if (q.get('data')) cfg.data = q.get('data');
 if (q.get('adapter')) cfg.adapter = q.get('adapter') === 'none' ? null : q.get('adapter');
-if (q.get('demo') && PO.demo) { cfg.demo = true; cfg.data = null; cfg.refreshSec = 3600; cfg.replies = { type: 'memory' }; }
+if (q.get('decide')) cfg.decide = q.get('decide');
+if (q.get('demo') && PO.demo) { cfg.demo = true; cfg.data = null; cfg.forceSample = true; cfg.refreshSec = 3600; cfg.replies = { type: 'memory' }; }
+else if (!cfg.data && location.protocol !== 'file:') cfg.data = 'data/project-hq.json';
 if (q.get('refresh')) cfg.refreshSec = Math.max(10, +q.get('refresh') || 60);
 var saved = null; try { saved = localStorage.getItem('gvo.lang'); } catch (e) {}
 PO.i18n.set(q.get('lang') || saved || cfg.lang || 'zh');
@@ -1220,11 +1367,18 @@ if (!layout) layout = await PO.data.getJSON(cfg.layout);
 var theme = PO.themes[cfg.theme] || PO.themes['default'];
 Object.keys(theme.css || {}).forEach(function (k) { document.documentElement.style.setProperty(k, theme.css[k]); });
 var R = cfg.replies && (cfg.replies.type === 'http' || cfg.replies.type === 'memory') ? PO.replies[cfg.replies.type](cfg.replies) : cfg.replies || null;
-var app = PO.app = { cfg: cfg, theme: theme, data: null, src: null, meeting: null, replies: R };
+var app = PO.app = { cfg: cfg, theme: theme, data: null, src: null, meeting: null, replies: R,
+decisions: PO.fleet ? PO.fleet.browserStore('mock') : { all: function () { return {}; }, has: function () { return false; }, decide: function () {}, reset: function () {} },
+decisionKey: 'mock' };
 var busy = function () { try { return !!(R && R.busy && R.busy()); } catch (e) { return false; } };
+function decorate(data) {
+PO.data.applyReplies(data, R);
+if (PO.fleet) PO.fleet.applyDecisions(data, app.decisions.all());
+return data;
+}
 
 function reapply() {
-if (!app.data) return; PO.data.applyReplies(app.data, R);
+if (!app.data) return; decorate(app.data);
 app.meeting = PO.data.meeting(app.data, Date.now()); app.engine.setData(app.data, app.meeting); PO.ui.renderTop(app.data, app.meeting, app.src);
 if (PO.ui.state.sel && !busy()) PO.ui.renderPanel(); else app.dirty = true;
 }
@@ -1238,7 +1392,11 @@ PO.ui.renderStatic();
 async function refresh(manual) {
 var r = await PO.data.load(cfg, app.src && app.src.source !== 'sample' ? app.src : null);
 if (R && R.sync) { try { await R.sync(); } catch (e) {} }
-app.src = r; app.data = PO.data.applyReplies(r.data, R); var now = Date.now();
+if (PO.fleet) {
+var key = PO.fleet.storeName(r.data.office && r.data.office.provider);
+if (key !== app.decisionKey) { app.decisionKey = key; app.decisions = PO.fleet.browserStore(key); }
+}
+app.src = r; app.data = decorate(r.data); var now = Date.now();
 app.meeting = PO.data.meeting(r.data, now);
 app.engine.setData(r.data, app.meeting);
 PO.ui.renderTop(r.data, app.meeting, r);
@@ -1247,7 +1405,7 @@ var fw = PO.data.fireworks(r.data, now); if (cfg.demo) fw = [];   // the demo fi
 fw.slice(0, 4).forEach(function (f, i) {
 setTimeout(function () { app.engine.celebrate(f.agent.id); PO.ui.toast(PO.i18n.t('firework', { a: f.agent.name, t: f.task.title || '' })); }, 900 + i * 1800);
 });
-if (r.error && manual) PO.ui.toast(PO.i18n.t('loadFail', { s: PO.i18n.t(r.source === 'sample' ? 'sample' : r.source === 'snapshot' ? 'snapshot' : 'live') }));
+if (r.error && manual) PO.ui.toast(PO.i18n.t('loadFail', { s: PO.i18n.t(r.source === 'sample' ? 'sample' : r.source === 'snapshot' ? 'snapshot' : r.source === 'demo' ? 'demo' : 'live') }));
 }
 app.refresh = refresh;
 await refresh();

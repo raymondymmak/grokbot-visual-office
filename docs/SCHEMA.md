@@ -43,13 +43,24 @@ Only `agents[].id` and `agents[].name` are required. Everything else has a sensi
 | `idle` | Wanders: coffee bar, bar stools, arcade, sofas, bookshelf, windows, or back to the desk for a while. |
 | `stuck` | At the desk with a sweat drop and a spinning swirl over the head; tag turns orange. |
 | `waiting_approval` | Walks to the queue in front of the command platform and raises a hand with a red **!** |
-| `offline` | Goes to a sleeping pod (charging capsule), `Zzz`. |
+| `offline` / `sleeping` | Goes to a sleeping pod (charging capsule), `Zzz`. `sleeping` is accepted in JSON and stored as `offline`. Project HQ labels this Sleeping. |
 | `done` | Cheers with fireworks once, then idles. |
 | any status + pending `confirms` | Overlay: red **!** and a hand raise (alternating with typing when working). The count shows on the name tag and in the 待你确认 / *Needs you* tab. |
 | pending `confirms` on a **finished** task (`done`, `cancelled`, `archived`, or `archived: true`) | No hand and no count. Listed in a collapsed 「已完成任务上的问题 N」 group in the panel. |
 | `isBoss: true` | Crowned robot on the central glowing platform. |
 
 Fireworks also fire once (tracked in `localStorage`) for any task whose `doneAt` is within the last 30 minutes.
+
+## Project HQ decisions
+
+`data/project-hq.json` is a mock roster (`office.provider: "mock"`). The top bar then says Demo, not Live.
+
+A confirm with `"kind": "approval"` gets Approve and Decline. For an agent whose `status` is `waiting_approval`:
+
+* Approve sets the confirm to `approved` and the agent to `resumeStatus` (default `working`).
+* Decline sets the confirm to `declined` and the agent to `declineStatus` (default `sleeping`).
+
+On the mock provider those writes stay in the page (`localStorage` key `phq.decisions.mock`). A live file (`office.provider: "live"`) uses a separate key, `phq.decisions.live`, and `VISUAL_OFFICE_CONFIG.decide`: `POST {confirmId, decision, agentId, taskId}` with `decision` `"approve"` or `"decline"`. If that URL is missing, the desk does not change. No Grok Bot URL is built in. See `src/fleet.js`.
 
 ## Loading
 

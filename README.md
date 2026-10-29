@@ -1,6 +1,36 @@
-# Grokbot Visual Office · AI 像素办公室
+# Project HQ · pixel office
 
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE) ![No build step](https://img.shields.io/badge/build-none-brightgreen.svg) ![Vanilla JS](https://img.shields.io/badge/vanilla-JS%20%2B%20canvas-f7df1e.svg)
+
+Raymond Mak’s Project HQ, as a thin layer on [Grokbot Visual Office](https://github.com/huaspirit123/grokbot-visual-office) (Apache-2.0, Copyright 2026 贾维斯豆). The isometric pixel office, robots, and layout are the upstream ones. This fork does not restyle them.
+
+The default page is a **demo roster** of desks: Project bots (Cursor coding agents), Academic tutors, Profile, Secretary, Schedule Reminders, and Tech Brief. Working desks type at the desk. Sleeping desks use the existing charging pod. Secretary starts at `waiting_approval`; **Approve** returns that desk to working, **Decline** sends it to sleep. The top bar says **Demo** while `office.provider` is `"mock"`, and **Live** only when a loaded file says `"live"`.
+
+There is no Grok Bot control API in this repo. The mock file is not a live fleet, and the page does not invent one. Cursor cloud-agent runs are not attached here; the Project bots desk is only a stand-in.
+
+## Start
+
+```bash
+npm start
+```
+
+Open http://localhost:8080/ (`npm run serve` is the same command). Add `?lang=en` for English. The original scripted tour, on the fictional sample office, is still `?demo=1`.
+
+Static files only: no build step. A host such as Vercel can serve this repository root as-is. This pass does not deploy or change any Vercel project settings.
+
+`python3 tools/bundle.py` writes `dist/grokbot-visual-office.html` with the Project HQ roster embedded. `?demo=1` on that file still plays the fictional sample tour.
+
+## Fleet provider
+
+Decisions on the mock roster stay in this browser (`localStorage` key `phq.decisions.mock`). Reset them from the Needs you / 待你确认 tab. Nothing is sent to Grok Bot.
+
+| Piece | Role |
+|---|---|
+| `data/project-hq.json` | Demo roster. `office.provider: "mock"` is what labels the top bar Demo. `status: "sleeping"` is drawn as the offline pod. |
+| `src/fleet.js` | `prepareAgent`, `applyDecisions`, `sourceFor`, and `submit`. Mock `submit` only writes the local store. |
+| Live swap | Serve the same office JSON with `"provider": "live"`. Set `VISUAL_OFFICE_CONFIG.decide` (or `?decide=`) to a URL you control. Approve/Decline `POST`s `{confirmId, decision, agentId, taskId}` where `decision` is `"approve"` or `"decline"`. If that URL is missing, the click shows an error and does not pretend it was sent. Live decisions are stored apart from demo ones (`phq.decisions.live`). |
+
+`?data=` still loads another office file. A file with no `provider` is labeled Live, as before, and Approve/Decline on it stays in the page until that file itself says `"provider": "live"`. Grok Bot has no model picker in its settings, so this page does not record or switch a model.
 
 A tiny **isometric pixel-art office floating above the clouds** where your AI agents (and human teammates) live.
 Each agent is a little white robot with its own accent colour. You can see at a glance who is working, who is stuck, who needs your answer and who is offline. Tap anyone to see what they are doing, what they finished and what they are waiting for you to confirm.
@@ -31,14 +61,13 @@ All screenshots use **fictional demo data only** (`sample-data.json`). Regenerat
 
 ## Quick start
 
+The Project HQ roster is what `npm start` serves (see above). To open only the original fictional sample, use `?demo=1` or `?data=sample-data.json`.
+
 ```bash
-python3 -m http.server 8000        # any static server
-open http://localhost:8000/        # shows the fictional "Demo Sky Office"
+python3 -m http.server 8080
 ```
 
-Single file: `python3 tools/bundle.py` → `dist/grokbot-visual-office.html` (open it directly, no server needed).
-
-Guided demo: add `?demo=1` (e.g. `http://localhost:8000/?demo=1&lang=en`). On the sample data it plays a 25 s scripted tour: a task finishes with fireworks, a cursor taps the robot that has its hand up, types an answer and sends it. `?demo=loop` repeats it. Demo answers use the in-memory reply provider and are never sent anywhere.
+Guided demo: `http://localhost:8080/?demo=1&lang=en`. On the fictional sample it plays a 25 s scripted tour: a task finishes with fireworks, a cursor taps the robot that has its hand up, types an answer and sends it. `?demo=loop` repeats it. Demo answers use the in-memory reply provider and are never sent anywhere.
 
 ## Connect your own agents
 
@@ -74,7 +103,7 @@ Host-specific glue such as a private endpoint or auth belongs in your own page o
 | `idle` | wanders between the coffee bar, stools, arcade, sofas, bookshelf and windows |
 | `stuck` | sweats at its desk with a spinning swirl overhead |
 | `waiting_approval` / pending confirms on open tasks | raises a hand with a red **!**, and queues in front of the command platform when it has nothing else to do |
-| `offline` | sleeps in a charging pod, Zzz |
+| `offline` / `sleeping` | sleeps in a charging pod, Zzz. Project HQ calls this sleeping. |
 | `done` / task finished < 30 min ago | cheers with fireworks (once) |
 | `isBoss` | wears a crown on the glowing central platform |
 | `kind: "human"` | is a little person instead of a robot |
@@ -86,6 +115,7 @@ index.html  styles.css          page shell (top bar, canvas, side panel)
 src/iso.js                       2:1 iso projection, screen↔tile, A* (8-dir, no corner cutting)
 src/engine.js                    renderer, camera (drag / wheel / pinch, integer zoom), state machine, depth sort, hit-testing
 src/data.js                      loading, refresh fallback, meeting + firework rules
+src/fleet.js                     Project HQ roster decisions (mock local, optional live POST)
 src/ui.js  src/main.js           panel (正在做 / 已完成 / 待你确认), config, boot
 src/i18n.js                      zh + en strings
 themes/default.js                ALL art: sky, platform, furniture, robots, effects (swap to re-skin)
@@ -103,7 +133,7 @@ The repo ships only fictional demo data. `.local/` is git-ignored, and in `dist/
 
 ## License
 
-[Apache License 2.0](LICENSE). Copyright 2026 贾维斯豆; see [NOTICE](NOTICE).
+[Apache License 2.0](LICENSE). Original pixel office Copyright 2026 贾维斯豆; Project HQ roster and fleet provider Copyright 2026 Raymond Mak. See [NOTICE](NOTICE).
 If you redistribute it, keep LICENSE and NOTICE and mark any files you changed.
 
 ## 中文说明
@@ -123,4 +153,6 @@ If you redistribute it, keep LICENSE and NOTICE and mark any files you changed.
 
 **隐私**：仓库只放虚构的示例数据，真实数据和截图放在已加入 .gitignore 的 `.local/` 里。
 
-**开源协议**：[Apache License 2.0](LICENSE)，Copyright 2026 贾维斯豆，见 [NOTICE](NOTICE)。再分发时请保留 LICENSE 和 NOTICE，并标明你修改过的文件。
+**Project HQ**：`npm start` 打开的是演示花名册（Project bots、Academic tutors、Profile、Secretary、Schedule Reminders、Tech Brief），顶栏标「演示」。Secretary 的批准 / 拒绝只改本页状态。仓库里没有 Grok Bot 控制接口；换成实时数据时，让 JSON 的 `office.provider` 为 `"live"`，并配置 `decide` 地址，见上文 Fleet provider。
+
+**开源协议**：[Apache License 2.0](LICENSE)。像素办公室 Copyright 2026 贾维斯豆；Project HQ 花名册与 fleet provider Copyright 2026 Raymond Mak。见 [NOTICE](NOTICE)。再分发时请保留 LICENSE 和 NOTICE，并标明你修改过的文件。

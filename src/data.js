@@ -26,10 +26,15 @@
     d.agents.forEach(function (a) { a.lastActive = sh(a.lastActive); (a.tasks || []).forEach(function (t) { t.startedAt = sh(t.startedAt); t.updatedAt = sh(t.updatedAt); t.doneAt = sh(t.doneAt); }); });
     return d;
   }
+  function sourceFor(data, fallback) {
+    return PO.fleet && PO.fleet.sourceFor ? PO.fleet.sourceFor(data, fallback) : fallback;
+  }
   function normalise(d) {
     d = d || {}; d.office = d.office || { name: 'AI Office' }; d.agents = (d.agents || []).filter(function (a) { return a && a.id != null; });
     d.agents.forEach(function (a, i) {
       a.id = String(a.id); a.name = a.name || a.id; a.kind = a.kind === 'human' ? 'human' : 'ai';
+      if (PO.fleet && PO.fleet.prepareAgent) PO.fleet.prepareAgent(a);
+      else if (a.status === 'sleeping') a.status = 'offline';
       if (STATUSES.indexOf(a.status) < 0) a.status = 'idle';
       a.baseStatus = a.baseStatus || a.status;
       a.tasks = (a.tasks || []).map(function (t, j) {
@@ -98,18 +103,23 @@
   }
   PO.data = {
     normalise: normalise, applyReplies: applyReplies, isClosed: isClosed, meeting: meeting, fireworks: fireworks, readInline: readInline, getJSON: getJSON,
-    /* Returns {data, source:'live'|'snapshot'|'sample', error} */
+    /* Returns {data, source:'live'|'demo'|'snapshot'|'sample', error}.
+       office.provider "mock" is Demo even when the file was fetched. "live" is Live.
+       cfg.forceSample skips both the URL and any embedded snapshot (the ?demo=1 tour). */
     load: async function (cfg, last) {
-      var url = cfg.data, err = null;
+      var url = cfg.forceSample ? null : cfg.data, err = null;
       if (url) {
         try {
           var raw = await getJSON(url);
-          return { data: PO.data.adapt(raw, cfg), source: 'live' };
+          var liveData = PO.data.adapt(raw, cfg);
+          return { data: liveData, source: sourceFor(liveData, 'live') };
         } catch (e) { err = e; }
         if (last) return { data: last.data, source: last.source, error: err };
       }
-      var snap = readInline('po-data');
-      if (snap) return { data: PO.data.adapt(snap, cfg), source: 'snapshot', error: err };
+      if (!cfg.forceSample) {
+        var snap = readInline('po-data');
+        if (snap) { var snapData = PO.data.adapt(snap, cfg); return { data: snapData, source: sourceFor(snapData, 'snapshot'), error: err }; }
+      }
       var sample = readInline('po-sample');
       if (!sample) { try { sample = await getJSON(cfg.sample || 'sample-data.json'); } catch (e) { sample = { office: { name: 'AI Office' }, agents: [] }; } }
       return { data: normalise(shiftDemo(JSON.parse(JSON.stringify(sample)))), source: 'sample', error: err };

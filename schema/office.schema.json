@@ -12,7 +12,8 @@
       "properties": {
         "name": { "type": "string", "description": "Shown in the top bar." },
         "updatedAt": { "type": "string", "format": "date-time" },
-        "demo": { "type": "boolean", "description": "Demo data: timestamps are shifted so updatedAt == now." }
+        "demo": { "type": "boolean", "description": "Demo data: timestamps are shifted so updatedAt == now." },
+        "provider": { "enum": ["mock", "live"], "description": "mock labels the top bar Demo. live labels it Live. Absent keeps the loader's own label (fetched file = Live, built-in sample = Sample)." }
       }
     },
     "projects": {
@@ -22,7 +23,7 @@
     "agents": { "type": "array", "items": { "$ref": "#/$defs/agent" } }
   },
   "$defs": {
-    "status": { "enum": ["working", "idle", "stuck", "waiting_approval", "offline", "done"] },
+    "status": { "enum": ["working", "idle", "stuck", "waiting_approval", "offline", "sleeping", "done"], "description": "sleeping is the Project HQ name for offline (charging pod). The loader stores it as offline." },
     "agent": {
       "type": "object",
       "required": ["id", "name"],
@@ -35,6 +36,8 @@
         "isBoss": { "type": "boolean", "description": "Sits on the central command platform. Default: none." },
         "seat": { "type": "integer", "description": "Optional desk id from the layout (1-based)." },
         "status": { "$ref": "#/$defs/status" },
+        "resumeStatus": { "description": "Status after a waiting_approval desk is approved. sleeping is accepted." },
+        "declineStatus": { "description": "Status after a waiting_approval desk is declined. sleeping is accepted." },
         "currentTask": { "type": ["string", "null"] },
         "project": { "type": ["string", "null"], "description": "Project id. 2+ working agents on the same project within 3 h hold a meeting." },
         "lastActive": { "type": ["string", "null"], "format": "date-time" },
@@ -65,7 +68,7 @@
           "items": {
             "anyOf": [
               { "type": "string" },
-              { "type": "object", "required": ["question"], "properties": { "id": { "type": "string" }, "question": { "type": "string" }, "status": { "enum": ["pending", "answered"] } } }
+              { "type": "object", "required": ["question"], "properties": { "id": { "type": "string" }, "question": { "type": "string" }, "kind": { "enum": ["approval", "question"], "description": "approval draws Approve and Decline. Anything else keeps the reply box." }, "status": { "enum": ["pending", "answered", "approved", "declined"] } } }
             ]
           }
         }

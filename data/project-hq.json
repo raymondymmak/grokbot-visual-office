@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "office": {
+    "name": "Project HQ",
+    "updatedAt": "2026-10-28T12:00:00+08:00",
+    "demo": true,
+    "provider": "mock"
+  },
+  "projects": [],
+  "agents": [
+    {
+      "id": "tech-brief",
+      "name": "Tech Brief",
+      "role": "Tech Brief",
+      "color": "#4f9dff",
+      "kind": "ai",
+      "seat": 1,
+      "status": "working",
+      "currentTask": null,
+      "project": null,
+      "lastActive": "2026-10-28T11:50:00+08:00",
+      "tasks": [
+        {
+          "id": "tech-brief-desk",
+          "title": "Demo — marked working",
+          "status": "running",
+          "startedAt": "2026-10-28T11:00:00+08:00",
+          "updatedAt": "2026-10-28T11:50:00+08:00",
+          "doneAt": null,
+          "progress": null,
+          "note": "Local mock. No live brief is loaded.",
+          "subtasks": [],
+          "confirms": []
+        }
+      ]
+    },
+    {
+      "id": "academic-tutors",
+      "name": "Academic tutors",
+      "role": "Academic tutors",
+      "color": "#34c4b8",
+      "kind": "ai",
+      "seat": 2,
+      "status": "working",
+      "currentTask": null,
+      "project": null,
+      "lastActive": "2026-10-28T11:40:00+08:00",
+      "tasks": [
+        {
+          "id": "academic-tutors-desk",
+          "title": "Demo — marked working",
+          "status": "running",
+          "startedAt": "2026-10-28T10:00:00+08:00",
+          "updatedAt": "2026-10-28T11:40:00+08:00",
+          "doneAt": null,
+          "progress": null,
+          "note": "One desk for the tutor role until a real roster is connected.",
+          "subtasks": [],
+          "confirms": []
+        }
+      ]
+    },
+    {
+      "id": "project-bots",
+      "name": "Project bots",
+      "role": "Cursor coding agents",
+      "color": "#ff7a59",
+      "kind": "ai",
+      "seat": 3,
+      "status": "working",
+      "currentTask": null,
+      "project": null,
+      "lastActive": "2026-10-28T11:55:00+08:00",
+      "tasks": [
+        {
+          "id": "project-bots-desk",
+          "title": "Demo — marked working",
+          "status": "running",
+          "startedAt": "2026-10-28T11:10:00+08:00",
+          "updatedAt": "2026-10-28T11:55:00+08:00",
+          "doneAt": null,
+          "progress": null,
+          "note": "Stands in for Cursor coding agents. No live cloud-agent run is connected.",
+          "subtasks": [],
+          "confirms": []
+        }
+      ]
+    },
+    {
+      "id": "secretary",
+      "name": "Secretary",
+      "role": "Secretary",
+      "color": "#c9952d",
+      "kind": "ai",
+      "seat": 4,
+      "status": "waiting_approval",
+      "resumeStatus": "working",
+      "declineStatus": "sleeping",
+      "currentTask": "Needs approval",
+      "project": null,
+      "lastActive": "2026-10-28T11:45:00+08:00",
+      "tasks": [
+        {
+          "id": "secretary-hold",
+          "title": "Waiting for approval",
+          "status": "running",
+          "startedAt": "2026-10-28T11:30:00+08:00",
+          "updatedAt": "2026-10-28T11:45:00+08:00",
+          "doneAt": null,
+          "progress": null,
+          "note": "Approve returns this desk to working. Decline sends it to sleep.",
+          "subtasks": [],
+          "confirms": [
+            {
+              "id": "secretary-hold-1",
+              "kind": "approval",
+              "question": "Approve or decline this demo hold?",
+              "status": "pending"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "profile",
+      "name": "Profile",
+      "role": "Profile",
+      "color": "#c08bff",
+      "kind": "ai",
+      "seat": 5,
+      "status": "sleeping",
+      "currentTask": null,
+      "project": null,
+      "lastActive": "2026-10-26T22:00:00+08:00",
+      "tasks": []
+    },
+    {
+      "id": "schedule-reminders",
+      "name": "Schedule Reminders",
+      "role": "Schedule Reminders",
+      "color": "#7a8cff",
+      "kind": "ai",
+      "seat": 6,
+      "status": "sleeping",
+      "currentTask": null,
+      "project": null,
+      "lastActive": "2026-10-26T21:00:00+08:00",
+      "tasks": []
+    }
+  ]
+}
